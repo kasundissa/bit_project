@@ -23,9 +23,14 @@ class product_category{
         $this->db->query($sql);
         return true;
     }
-    function remove()
+    function remove($cid)
     {
-
+		$sql="update product_category set cat_status='del' where catid=$cid";
+		
+		//echo $sql;
+		
+		$this->db->query($sql);
+		return true;
     }
     function change()
     {
@@ -37,7 +42,18 @@ class product_category{
     }
     function getall()
     {
+		$sql="select * from product_category where cat_status='act'";
+			$res = $this->db->query($sql);
+			$ar=array();
+			while($row=$res->fetch_array()){
+				$p=new product_category();
+				$p->cat_id = $row['catid'];
+				$p->cat_code =$row['cat_code'];
+				$p->cat_name=$row['cat_name'];
 
+				$ar[]=$p;
+			}
+		return $ar;
     }
 }
 ?>

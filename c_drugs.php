@@ -29,9 +29,11 @@ class drugs{
         $this->db->query($sql);
         return true;
     }
-    function remove()
+    function remove($did)
     {
-
+        $sql="update drugs set drug_status='del' where drg_id=$did";
+        $this->db->query($sql);
+        return true;
     }
     function change()
     {
@@ -43,7 +45,25 @@ class drugs{
     }
     function getall()
     {
+        $sql="select * from drugs where drug_status='act'";
+        $res=$this->db->query($sql);
+        $ar=array();
+        while ($row=$res->fetch_array())
+        {
+            $d=new drugs();
+            $d->drug_id=$row['drg_id'];
+            $d->drug_name=$row['drg_name'];
+            $d->comp_name=$row['company_name'];
+            $d->description=$row['description'];
+            $d->batch_no=$row['batch_no'];
+            $d->weight=$row['weight'];
+            $d->manu_date=$row['manu_date'];
+            $d->exp_date=$row['expi_date'];
+            $d->price=$row['price'];
 
+            $ar[]=$d;
+        }
+        return $ar;
     }
 }
 ?>

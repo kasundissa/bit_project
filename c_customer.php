@@ -27,9 +27,12 @@ class customer{
         $this->db->query($sql);
         return true;
     }
-    function remove()
+    function remove($cid)
     {
+        $sql="update customer set cus_status='del' where cus_ID=$cid";
 
+        $this->db->query($sql);
+        return true;
     }
     function change_pw()
     {
@@ -41,7 +44,22 @@ class customer{
     }
     function getall()
     {
-
+        $sql="select * from customer where cus_status='act'";
+        $res=$this->db->query($sql);
+        $ar=array();
+        while($row=$res->fetch_array())
+        {
+            $c=new customer();
+            $c->cus_ID=$row['cus_ID'];
+            $c->cus_Name=$row['cus_Name'];
+            $c->cus_password=$row['cus_password'];
+            $c->cus_NIC=$row['cus_NIC'];
+            $c->cus_address=$row['cus_address'];
+            $c->cus_mobile=$row['cus_mobile'];
+            $c->cus_email=$row['cus_email'];
+            $ar[]=$c;
+        }
+        return $ar;
     }
 }
 ?>

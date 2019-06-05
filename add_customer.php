@@ -2,7 +2,7 @@
 
 if (isset($_POST["cname"]))
 {
-    echo "saving......";
+
     include_once("c_customer.php");
     $c = new customer();
 
@@ -14,7 +14,9 @@ if (isset($_POST["cname"]))
     $c->cus_email = $_POST["cemail"];
 
     $c->register();
+
 }
+include_once("head.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,20 +25,51 @@ if (isset($_POST["cname"]))
 
 </head>
 <body>
-<form method="post" action="#">
-    <label>Name</label>
-    <input type="text" name="cname"><br/>
-    <label>Password</label>
-    <input type="password" name="cpassword"><br/>
-    <label>NIC</label>
-    <input type="text" name="cnic"><br/>
-    <label>Address</label>
-    <input type="text" name="caddress"><br/>
-    <label>Mobile</label>
-    <input type="text" name="cmobile"><br/>
-    <label>Email</label>
-    <input type="text" name="cemail"><br/>
-    <input type="submit">
+<form method="post" action="#" class="form-horizontal">
+
+    <div class="form-group">
+        <label class="control-label col-sm-2">Name:</label>
+        <div class="col-sm-10">
+            <input type="text" name="cname" class="form-control"  placeholder="Enter Customer Name">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-sm-2" >Password:</label>
+        <div class="col-sm-10">
+            <input type="password" name="cpassword" class="form-control" placeholder="Enter password">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" >NIC:</label>
+        <div class="col-sm-10">
+            <input type="text" name="cnic" class="form-control" placeholder="Enter NIC">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" >Address:</label>
+        <div class="col-sm-10">
+            <input type="text" name="caddress" class="form-control"  placeholder="Enter Address">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" >Mobile:</label>
+        <div class="col-sm-10">
+            <input type="text" name="cmobile" class="form-control"  placeholder="Enter Mobile Number">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" >Email:</label>
+        <div class="col-sm-10">
+            <input type="text" name="cemail" class="form-control" placeholder="Enter Email Address">
+        </div>
+    </div>
+
+
+    <input type="submit" class="btn">
 </form>
 </body>
 </html>
+<?php
+include_once("foot.php");
+?>

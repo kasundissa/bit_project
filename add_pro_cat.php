@@ -1,6 +1,5 @@
 <?php
 if(isset($_POST["pcode"])){
-	echo "saving......";
 	include_once("c_pro_cat.php");
 
 	$p=new product_category();
@@ -9,6 +8,7 @@ if(isset($_POST["pcode"])){
 	$p->cat_name=$_POST["pcategory"];
 	$p->register();
 }
+include_once("head.php");
 ?>
 
 
@@ -21,12 +21,23 @@ if(isset($_POST["pcode"])){
 
 </head>
 <body>
-<form method="post" action="#">
-    <label>Product Code</label>
-    <input type="text" name="pcode"><br/>
-    <label>Product Category</label>
-    <input type="text" name="pcategory"><br/>
-    <input type="submit">
+<form method="post" action="#" class="form-horizontal">
+    <div class="form-group">
+        <label class="control-label col-sm-2">Product Code:</label>
+        <div class="col-sm-10">
+            <input type="text" name="pcode" class="form-control"  placeholder="Enter Product Code">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2">Product Category:</label>
+        <div class="col-sm-10">
+            <input type="text" name="pcategory" class="form-control"  placeholder="Enter Product Category">
+        </div>
+    </div>
+    <input type="submit" class="btn">
 </form>
 </body>
 </html>
+<?php
+include_once("foot.php");
+?>

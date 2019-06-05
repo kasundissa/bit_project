@@ -8,9 +8,13 @@
     }
 
     $arr=$d->getall();
- ?>
 
-<table border="1">
+
+    include_once("head.php");
+
+?>
+
+<table class="table">
     <tr><th>Drug ID</th><th>Drug Name</th><th>Company Name</th><th>Description</th><th>Batch No</th><th>Weight</th><th>Manufactured Date</th><th>Expire Date</th><th>Price</th></tr>
 
     <?php
@@ -28,3 +32,8 @@
             location.href="drugs_list.php?dd="+didx;
     }
 </script>
+
+
+<?php
+include_once("foot.php");
+?>

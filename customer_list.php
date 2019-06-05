@@ -8,8 +8,10 @@
     }
 
     $arr=$c->getall();
+
+    include_once("head.php");
 ?>
-<table border="1">
+<table class="table">
     <tr><th>Customer ID</th><th>Customer Name</th><th>Password</th><th>NIC</th><th>Address</th><th>Mobile</th><th>Email</th></tr>
     <?php
         foreach ($arr as $item)
@@ -25,3 +27,6 @@
             location.href="customer_list.php?dc="+cidx;
     }
 </script>
+<?php
+include_once("foot.php");
+?>

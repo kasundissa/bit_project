@@ -8,13 +8,15 @@
 	}
 	
 	$arr=$p->getall();
+
+    include_once("head.php");
 ?>
-<table border='1'>
+<table class="table">
 	<tr><th>Category ID</th><th>Category Code</th><th>Category Name</th></tr>
 	
 	<?php
 		foreach($arr as $item){
-			echo "<tr><td>$item->cat_id</td><td>$item->cat_name</td><td onclick='delp($item->cat_id)'>del</td></tr>";
+			echo "<tr><td>$item->cat_id</td><td>$item->cat_code</td><td>$item->cat_name</td><td onclick='delp($item->cat_id)'>del</td></tr>";
 			
 		}
 	?>
@@ -31,3 +33,6 @@
 	}
 
 </script>
+<?php
+include_once("foot.php");
+?>

@@ -65,12 +65,19 @@
                         <li><i class="fa fa-id-badge"></i><a href="customer_list.php">view customers</a></li>
                     </ul>
                 </li>
+                <li class="menu-item-has-children active dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Suppliers</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-puzzle-piece"></i><a href="add_supplier.php">add supplier</a></li>
+                        <li><i class="fa fa-id-badge"></i><a href="supplier_list.php">view suppliers</a></li>
+                    </ul>
+                </li>
 
                 <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Product Category</a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Drugs Category</a>
                     <ul class="sub-menu children dropdown-menu">
-                        <li><i class="fa fa-table"></i><a href="add_pro_cat.php">Add Product Category</a></li>
-                        <li><i class="fa fa-table"></i><a href="pro_cat_list.php">View Product Category</a></li>
+                        <li><i class="fa fa-table"></i><a href="add_drg_cat.php">Add Drugs Category</a></li>
+                        <li><i class="fa fa-table"></i><a href="drg_cat_list.php">View Drugs Category</a></li>
                     </ul>
                 </li>
                 <li class="menu-item-has-children dropdown">
@@ -83,8 +90,8 @@
                 <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Forms</a>
                     <ul class="sub-menu children dropdown-menu">
-                        <li><i class="menu-icon fa fa-th"></i><a href="forms-basic.html">Basic Form</a></li>
-                        <li><i class="menu-icon fa fa-th"></i><a href="forms-advanced.html">Advanced Form</a></li>
+                        <li><i class="menu-icon fa fa-th"></i><a href="grn.php">GRN</a></li>
+                        <li><i class="menu-icon fa fa-th"></i><a href="pos.php">POS</a></li>
                     </ul>
                 </li>
 
@@ -233,7 +240,7 @@
 
                         <a class="nav-link" href="#"><i class="fa fa-cog"></i> Settings</a>
 
-                        <a class="nav-link" href="#"><i class="fa fa-power-off"></i> Logout</a>
+                        <a class="nav-link" href="page-login.php?logout=1"><i class="fa fa-power-off"></i> Logout</a>
                     </div>
                 </div>
 

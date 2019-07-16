@@ -5,27 +5,35 @@
  * Date: 19-May-19
  * Time: 12:43 PM
  */
+include_once("config.php");
 class drugs{
     public $drug_id;
     public $drug_name;
-    public $comp_name;
+    public $brand_name;
+    public $manufacturer_name;
     public $description;
-    public $batch_no;
     public $weight;
-    public $manu_date;
-    public $exp_date;
-    public $price;
-
+    public $cat_id;
+    public $cat;
     private $db;
 
     function __construct()
     {
-        $this->db=new mysqli("localhost","root","","Suncity");
+        $this->db=new mysqli(server,username,password,dbname);
     }
     function register()
     {
-        $sql="insert into drugs(drg_name,company_name,description,batch_no,weight,manu_date,expi_date,price)
-        values('$this->drug_name','$this->comp_name','$this->description','$this->batch_no','$this->weight','$this->manu_date','$this->exp_date','$this->price')";
+        $sql="insert into drugs(drg_name,brand_name,manufacturer,description,weight,catid)
+        values('$this->drug_name','$this->brand_name','$this->manufacturer_name','$this->description','$this->weight','$this->cat_id')";
+        $this->db->query($sql);
+        return true;
+    }
+    function update($id)
+    {
+        $sql="update drugs set drg_name='$this->drug_name',brand_name='$this->brand_name',manufacturer='$this->manufacturer_name',description='$this->description',weight='$this->weight',catid='$this->cat_id' where drg_id=$id";
+
+      // echo $sql;
+
         $this->db->query($sql);
         return true;
     }
@@ -35,31 +43,42 @@ class drugs{
         $this->db->query($sql);
         return true;
     }
-    function change()
+    function getbyid($id)
     {
+        $sql = "select * from drugs where drug_status='act' and drg_id=$id";
+        $res = $this->db->query($sql);
+        $row = $res->fetch_array();
+        include_once("c_drugs_category.php");
+        $c = new drugs_category();
+        $d = new drugs();
+        $d->drug_id=$row['drg_id'];
+        $d->drug_name=$row['drg_name'];
+        $d->brand_name=$row['brand_name'];
+        $d->manufacturer_name=$row['manufacturer'];
+        $d->description=$row['description'];
+        $d->weight=$row['weight'];
+        $d->cat=$c->getbyid($row['catid']);
 
-    }
-    function getbyid()
-    {
-
+        return $d;
     }
     function getall()
     {
         $sql="select * from drugs where drug_status='act'";
         $res=$this->db->query($sql);
         $ar=array();
+        include_once("c_drugs_category.php");
+        $c = new drugs_category();
         while ($row=$res->fetch_array())
         {
             $d=new drugs();
             $d->drug_id=$row['drg_id'];
             $d->drug_name=$row['drg_name'];
-            $d->comp_name=$row['company_name'];
+            $d->brand_name=$row['brand_name'];
+            $d->manufacturer_name=$row['manufacturer'];
             $d->description=$row['description'];
-            $d->batch_no=$row['batch_no'];
             $d->weight=$row['weight'];
-            $d->manu_date=$row['manu_date'];
-            $d->exp_date=$row['expi_date'];
-            $d->price=$row['price'];
+            $d->cat=$c->getbyid($row['catid']);
+
 
             $ar[]=$d;
         }

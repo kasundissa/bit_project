@@ -1,9 +1,11 @@
 <?php
+include_once("config.php");
 class user{
 	public $usr_ID;
 	public $usr_Name;
 	public $usr_password;
 	public $usr_NIC;
+	public $dob;
 	public $usr_address;
 	public $usr_mobile;
 	public $usr_email;
@@ -12,18 +14,32 @@ class user{
 	
 	function __construct()
     {
-		$this->db=new mysqli("localhost","root","","Suncity");
+		$this->db=new mysqli(server,username,password,dbname);
 	}
 	function register()
     {
-		$sql="insert into user(usr_Name,usr_password,usr_NIC,usr_address,usr_mobile,usr_email)
-		values('$this->usr_Name','$this->usr_password','$this->usr_NIC','$this->usr_address','$this->usr_mobile','$this->usr_email')";
+		$sql="insert into user(usr_Name,usr_password,usr_NIC,date_of_birth,usr_address,usr_mobile,usr_email) 
+             values('$this->usr_Name',md5('$this->usr_password'),'$this->usr_NIC','$this->dob','$this->usr_address','$this->usr_mobile','$this->usr_email')";
 		
 		//echo $sql;
 		
 		$this->db->query($sql);
 		return true;
 	}
+
+
+    function update($id)
+    {
+        $sql="update user set usr_Name='$this->usr_Name',usr_password=md5('$this->usr_password'),usr_NIC='$this->usr_NIC',date_of_birth='$this->dob',usr_address='$this->usr_address',usr_mobile='$this->usr_mobile',usr_email='$this->usr_email'
+              where usr_ID=$id";
+
+        //echo $sql;
+
+        $this->db->query($sql);
+        return true;
+    }
+
+
 	function remove($uid)
     {
 		$sql="update user set usr_status='del' where usr_ID=$uid";
@@ -37,10 +53,42 @@ class user{
     {
 		
 	}
-	function getbyid()
+	function getbyid($id)
     {
-		
-	}
+        $sql = "select * from user where usr_status='act' and usr_ID=$id";
+        $res = $this->db->query($sql);
+
+        $row = $res->fetch_array();
+        $u = new user();
+        $u->usr_ID = $row['usr_ID'];
+        $u->usr_Name = $row['usr_Name'];
+        $u->usr_password = $row['usr_password'];
+        $u->usr_NIC = $row['usr_NIC'];
+        $u->dob = $row['date_of_birth'];
+        $u->usr_address = $row['usr_address'];
+        $u->usr_mobile = $row['usr_mobile'];
+        $u->usr_email = $row['usr_email'];
+
+        return $u;
+    }
+
+    function login($un,$pw)
+    {
+        $sql = "select * from user where usr_Name='$un' and usr_password=md5('$pw')";
+        $res = $this->db->query($sql);
+        if ($res->num_rows==1)
+        {
+            $row = $res->fetch_array();
+            session_start();
+            $_SESSION["uid"]=$row["usr_ID"];
+            return true;
+
+        }
+        else
+            return false;
+
+    }
+
 	function getall()
     {
 		$sql="select * from user where usr_status='act'";
@@ -52,6 +100,7 @@ class user{
 			$u->usr_Name =$row['usr_Name'];
 			$u->usr_password=$row['usr_password'];
 			$u->usr_NIC=$row['usr_NIC'];
+            $u->dob = $row['date_of_birth'];
 			$u->usr_address=$row['usr_address'];
 			$u->usr_mobile=$row['usr_mobile'];
 			$u->usr_email=$row['usr_email'];

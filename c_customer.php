@@ -5,11 +5,12 @@
  * Date: 16-May-19
  * Time: 6:33 PM
  */
+include_once("config.php");
 class customer{
     public $cus_ID;
     public $cus_Name;
-    public $cus_password;
     public $cus_NIC;
+    public $dob;
     public $cus_address;
     public $cus_mobile;
     public $cus_email;
@@ -18,12 +19,22 @@ class customer{
 
     function __construct()
     {
-        $this->db=new mysqli("localhost","root","","Suncity");
+        $this->db=new mysqli(server,username,password,dbname);
     }
     function register()
     {
-        $sql="insert into customer(cus_Name,cus_password,cus_NIC,cus_address,cus_mobile,cus_email) 
-        values('$this->cus_Name','$this->cus_password','$this->cus_NIC','$this->cus_address','$this->cus_mobile','$this->cus_email')";
+        $sql="insert into customer(cus_Name,cus_NIC,date_of_birth,cus_address,cus_mobile,cus_email) 
+        values('$this->cus_Name','$this->cus_NIC','$this->dob','$this->cus_address','$this->cus_mobile','$this->cus_email')";
+        $this->db->query($sql);
+        return true;
+    }
+    function update($id)
+    {
+        $sql="update customer set cus_Name='$this->cus_Name',cus_NIC='$this->cus_NIC',date_of_birth='$this->dob',cus_address='$this->cus_address',cus_mobile='$this->cus_mobile',cus_email='$this->cus_email'
+              where cus_ID=$id";
+
+        //echo $sql;
+
         $this->db->query($sql);
         return true;
     }
@@ -34,13 +45,23 @@ class customer{
         $this->db->query($sql);
         return true;
     }
-    function change_pw()
-    {
 
-    }
-    function getbyid()
+    function getbyid($id)
     {
+        $sql = "select * from customer where cus_status='act' and cus_ID=$id";
+        $res = $this->db->query($sql);
 
+        $row = $res->fetch_array();
+        $c = new customer();
+        $c->cus_ID=$row['cus_ID'];
+        $c->cus_Name=$row['cus_Name'];
+        $c->cus_NIC=$row['cus_NIC'];
+        $c->dob=$row['date_of_birth'];
+        $c->cus_address=$row['cus_address'];
+        $c->cus_mobile=$row['cus_mobile'];
+        $c->cus_email=$row['cus_email'];
+
+        return $c;
     }
     function getall()
     {
@@ -52,8 +73,8 @@ class customer{
             $c=new customer();
             $c->cus_ID=$row['cus_ID'];
             $c->cus_Name=$row['cus_Name'];
-            $c->cus_password=$row['cus_password'];
             $c->cus_NIC=$row['cus_NIC'];
+            $c->dob=$row['date_of_birth'];
             $c->cus_address=$row['cus_address'];
             $c->cus_mobile=$row['cus_mobile'];
             $c->cus_email=$row['cus_email'];

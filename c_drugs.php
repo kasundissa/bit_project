@@ -11,8 +11,8 @@ class drugs{
     public $drug_name;
     public $brand_name;
     public $manufacturer_name;
+    public $marketer_name;
     public $description;
-    public $weight;
     public $cat_id;
     public $cat;
     private $db;
@@ -23,14 +23,14 @@ class drugs{
     }
     function register()
     {
-        $sql="insert into drugs(drg_name,brand_name,manufacturer,description,weight,catid)
-        values('$this->drug_name','$this->brand_name','$this->manufacturer_name','$this->description','$this->weight','$this->cat_id')";
+        $sql="insert into drugs(drg_name,brand_name,manufacturer,marketer,description,catid)
+        values('$this->drug_name','$this->brand_name','$this->manufacturer_name','$this->marketer_name',''$this->description','$this->cat_id')";
         $this->db->query($sql);
         return true;
     }
     function update($id)
     {
-        $sql="update drugs set drg_name='$this->drug_name',brand_name='$this->brand_name',manufacturer='$this->manufacturer_name',description='$this->description',weight='$this->weight',catid='$this->cat_id' where drg_id=$id";
+        $sql="update drugs set drg_name='$this->drug_name',brand_name='$this->brand_name',manufacturer='$this->manufacturer_name',marketer='$this->marketer_name',description='$this->description',catid='$this->cat_id' where drg_id=$id";
 
       // echo $sql;
 
@@ -55,8 +55,8 @@ class drugs{
         $d->drug_name=$row['drg_name'];
         $d->brand_name=$row['brand_name'];
         $d->manufacturer_name=$row['manufacturer'];
+        $d->marketer_name=$row['marketer'];
         $d->description=$row['description'];
-        $d->weight=$row['weight'];
         $d->cat=$c->getbyid($row['catid']);
 
         return $d;
@@ -75,8 +75,8 @@ class drugs{
             $d->drug_name=$row['drg_name'];
             $d->brand_name=$row['brand_name'];
             $d->manufacturer_name=$row['manufacturer'];
+            $d->marketer_name=$row['marketer'];
             $d->description=$row['description'];
-            $d->weight=$row['weight'];
             $d->cat=$c->getbyid($row['catid']);
 
 

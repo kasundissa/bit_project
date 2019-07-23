@@ -12,8 +12,8 @@ if (isset($_POST["dname"]))
     $d2->drug_name = $_POST["dname"];
     $d2->brand_name = $_POST["br_name"];
     $d2->manufacturer_name = $_POST["manu_name"];
+    $d2->marketer_name = $_POST["marktr_name"];
     $d2->description = $_POST["description"];
-    $d2->weight = $_POST["weight"];
     $d2->cat_id =$_POST["category"];
 
     if(isset($_POST["uid"])){
@@ -84,19 +84,19 @@ include_once("head.php");
     <div class="form-group">
         <label class="control-label col-sm-2">Manufacturer:</label>
         <div class="col-sm-10">
-            <input type="text" name="manu_name" class="form-control"  placeholder="e.g.:-Hemas" value="<?=$d->manufacturer_name?>" required>
+            <input type="text" name="manu_name" class="form-control"  placeholder="e.g.:-Cadila Healthcare Limited" value="<?=$d->manufacturer_name?>" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2">Marketer Name:</label>
+        <div class="col-sm-10">
+            <input type="text" name="marktr_name" class="form-control"  placeholder="e.g.:-CIC Holdings PLC" value="<?=$d->marketer_name?>" required>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-sm-2">Description:</label>
         <div class="col-sm-10">
             <input type="text" name="description" class="form-control"  placeholder="Enter Description" value="<?=$d->description?>">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-sm-2">Weight:</label>
-        <div class="col-sm-10">
-            <input type="text" name="weight" class="form-control"  placeholder="e.g.:-15mg" value="<?=$d->weight?>" required>
         </div>
     </div>
     <input type="submit" class="btn">

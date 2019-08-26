@@ -231,6 +231,8 @@
                             </a>
                         </div>
                     </div>
+              &nbsp;    &nbsp;  &nbsp;  &nbsp;  &nbsp;      <span id="dt"></span> &nbsp; &nbsp;&nbsp;&nbsp; Kasun
+
                 </div>
             </div>
 
@@ -308,3 +310,13 @@
 
                         <div class="card">
                             <div class="card-body">
+<script>
+    setInterval(function () {
+        var date = new Date();
+        jQuery('#dt').html(
+            date.getFullYear()+"/" +  (date.getMonth()+1) +"/" + date.getDate()+" " + date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()
+        );
+    },
+
+        500);
+</script>

@@ -9,6 +9,7 @@ if (isset($_POST["cname"]))
     $c2 = new customer();
     $c2->cus_Name = $_POST["cname"];
     $c2->cus_NIC = $_POST["cnic"];
+    $c2->loyalty_no = $_POST["l_no"];
     $c2->dob = $_POST["dob"];
     $c2->cus_address = $_POST["caddress"];
     $c2->cus_mobile = $_POST["cmobile"];
@@ -47,7 +48,12 @@ include_once("head.php");
 
 
     ?>
-
+    <div class="form-group">
+        <label class="control-label col-sm-2">Loyalty Card No:</label>
+        <div class="col-sm-10">
+            <input type="text" name="l_no" class="form-control"  placeholder="e.g.:-0011223344" value="<?=$c->loyalty_no?>" required>
+        </div>
+    </div>
     <div class="form-group">
         <label class="control-label col-sm-2">Name:</label>
         <div class="col-sm-10">

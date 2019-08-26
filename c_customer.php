@@ -10,6 +10,7 @@ class customer{
     public $cus_ID;
     public $cus_Name;
     public $cus_NIC;
+    public $loyalty_no;
     public $dob;
     public $cus_address;
     public $cus_mobile;
@@ -23,14 +24,14 @@ class customer{
     }
     function register()
     {
-        $sql="insert into customer(cus_Name,cus_NIC,date_of_birth,cus_address,cus_mobile,cus_email) 
-        values('$this->cus_Name','$this->cus_NIC','$this->dob','$this->cus_address','$this->cus_mobile','$this->cus_email')";
+        $sql="insert into customer(cus_Name,cus_NIC,loyalty_card_no,date_of_birth,cus_address,cus_mobile,cus_email) 
+        values('$this->cus_Name','$this->cus_NIC','$this->loyalty_no','$this->dob','$this->cus_address','$this->cus_mobile','$this->cus_email')";
         $this->db->query($sql);
         return true;
     }
     function update($id)
     {
-        $sql="update customer set cus_Name='$this->cus_Name',cus_NIC='$this->cus_NIC',date_of_birth='$this->dob',cus_address='$this->cus_address',cus_mobile='$this->cus_mobile',cus_email='$this->cus_email'
+        $sql="update customer set cus_Name='$this->cus_Name',cus_NIC='$this->cus_NIC',loyalty_card_no='$this->loyalty_no',date_of_birth='$this->dob',cus_address='$this->cus_address',cus_mobile='$this->cus_mobile',cus_email='$this->cus_email'
               where cus_ID=$id";
 
         //echo $sql;
@@ -56,6 +57,7 @@ class customer{
         $c->cus_ID=$row['cus_ID'];
         $c->cus_Name=$row['cus_Name'];
         $c->cus_NIC=$row['cus_NIC'];
+        $c->loyalty_no=$row['loyalty_card_no'];
         $c->dob=$row['date_of_birth'];
         $c->cus_address=$row['cus_address'];
         $c->cus_mobile=$row['cus_mobile'];
@@ -74,6 +76,7 @@ class customer{
             $c->cus_ID=$row['cus_ID'];
             $c->cus_Name=$row['cus_Name'];
             $c->cus_NIC=$row['cus_NIC'];
+            $c->loyalty_no=$row['loyalty_card_no'];
             $c->dob=$row['date_of_birth'];
             $c->cus_address=$row['cus_address'];
             $c->cus_mobile=$row['cus_mobile'];

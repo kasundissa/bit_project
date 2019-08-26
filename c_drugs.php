@@ -24,7 +24,7 @@ class drugs{
     function register()
     {
         $sql="insert into drugs(drg_name,brand_name,manufacturer,marketer,description,catid)
-        values('$this->drug_name','$this->brand_name','$this->manufacturer_name','$this->marketer_name',''$this->description','$this->cat_id')";
+        values('$this->drug_name','$this->brand_name','$this->manufacturer_name','$this->marketer_name','$this->description','$this->cat_id')";
         $this->db->query($sql);
         return true;
     }

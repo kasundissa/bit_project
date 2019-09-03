@@ -99,6 +99,7 @@
                     <ul class="sub-menu children dropdown-menu">
                         <li><i class="menu-icon fa fa-th"></i><a href="grn.php">GRN</a></li>
                         <li><i class="menu-icon fa fa-th"></i><a href="pos.php">POS</a></li>
+                        <li><i class="menu-icon fa fa-th"></i><a href="sup_payments.php">Payments</a></li>
                     </ul>
                 </li>
 

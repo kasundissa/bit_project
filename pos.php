@@ -9,11 +9,10 @@ session_start();
 if(!isset($_SESSION["uid"]))
     header("location:page-login.php");
 include_once("c_pos.php");
-if (isset($_POST["bill_no"]))
+if (isset($_POST["total_amount"]))
 {
     $ps = new pos();
 
-    $ps->bill_no = $_POST["bill_no"];
     $ps->tot_amount = $_POST["total_amount"];
     $ps->tot_discount = $_POST["total_discount"];
     $ps->sub_tot = $_POST["sub_total"];
@@ -24,30 +23,37 @@ if (isset($_POST["bill_no"]))
     $ps->qty=$_POST["qnty"];
     $ps->amt=$_POST["amt"];
     $ps->discount=$_POST["t_diss"];
+    $ps->points = $_POST["points"];
 
+    $ps->cus_id = $_POST["cid"];
 
         $ps->register();
 
 }
+/*
+include_once("c_points.php");
+if (isset($_POST["points"])) {
+    $pnt = new points();
 
+
+
+    $pnt->register();
+}
+*/
 include_once("head.php");
 ?>
 <body>
-<form method="post" action="" class="form-horizontal">
+<form method="post" action="pos.php" class="form-horizontal">
     <div class="form-group col-sm-12">
         <div class="form-group col-sm-6">
-            <label class="control-label col-sm-3" >Bill No:</label>
-            <div class="col-sm-9">
-                <input type="text" name="bill_no" class="form-control" placeholder="e.g.:-0123456789"  required>
-            </div>
         </div>
      <div class="form-group col-sm-6">
          <label class="control-label col-sm-6" >Loyalty Code:</label>
          <div class="col-sm-6">
-             <input type="text" name="loyalty_code" class="form-control" >
+             <input type="text" name="loyalty_code" id="loyalty_no" class="form-control" >
          </div>
      </div>
-
+<input type="text" name="cid" id="cid">
         <div class="form-group col-sm-12">
             <h3>Product Details</h3>
         </div>
@@ -82,7 +88,7 @@ include_once("head.php");
             <br/>
             <label class="control-label col-sm-6" >Discount (%):</label>
             <div class="col-sm-6">
-                <input type="text" name="discount" id="discount" class="form-control">
+                <input type="text" name="discount" id="discount" value="0" class="form-control">
             </div>
         </div>
         <div class="form-group col-sm-4">
@@ -96,7 +102,7 @@ include_once("head.php");
             </div>
         </div>
         <table class="table" border="2">
-            <tr><th>Item No</th><th>Item Name</th><th>Price</th><th>Quantity</th><th>Amount</th>
+            <tr><th>Item Name</th><th>Price</th><th>Quantity</th><th>Amount</th>
                 <th>Discount</th><th>Remove</th></tr>
 
             <tbody id="table1">
@@ -123,7 +129,7 @@ include_once("head.php");
             <br/>
             <label class="control-label col-sm-6" >Points:</label>
             <div class="col-sm-6">
-                <input type="text" name="points" class="form-control">
+                <input type="text" name="points" id="pts" class="form-control">
             </div>
             <br/>
             <br/>
@@ -157,17 +163,19 @@ include_once("head.php");
             </div>
         </div>
 
+
         <input type="button" class="btn" value="Save and Print">
         <input type="submit" class="btn" value="Save">
         <a href="pos.php"> <input type="button" class="btn" value="Cancel"></a>
         <input type="button" class="btn" value="Load Points">
+    <input type="hidden" id="points" name="points">
 </form>
 </body>
 <?php
 include_once("foot.php");
 ?>
 <script>
-    var count = 0;
+
     function add() {
         var it_name = jQuery("#i_name").val();
         var quty = jQuery("#qty").val();
@@ -185,7 +193,7 @@ include_once("foot.php");
         if (diss.length<1)
             return;
 
-        var table_content = " <tr><td>"+(count+1) +"</td><td><input type='text' id='in' readonly='readonly' value='"+it_name+"' name='in[]' ></td><td><input size='6' type='text' id='prc' readonly='readonly' value='"+price+"' name='prc[]' ></td><td><input size='6' type='text' id='qnty' readonly='readonly' value='"+quty+"' name='qnty[]' ></td><td><input size='6' type='text' class='amt' readonly='readonly' value='"+amount+"' name='amt[]' ></td><td><input size='6' type='text' class='t_diss' readonly='readonly' value='"+tot_diss+"' name='t_diss[]' ></td><td><input type='button' class='btn' onclick='remove(this)' value='Remove'></td></tr>";
+        var table_content = " <tr><td><input type='text' id='in' readonly='readonly' value='"+it_name+"' name='in[]' ></td><td><input size='6' type='text' id='prc' readonly='readonly' value='"+price+"' name='prc[]' ></td><td><input size='6' type='text' id='qnty' readonly='readonly' value='"+quty+"' name='qnty[]' ></td><td><input size='6' type='text' class='amt' readonly='readonly' value='"+amount+"' name='amt[]' ></td><td><input size='6' type='text' class='t_diss' readonly='readonly' value='"+tot_diss+"' name='t_diss[]' ></td><td><input type='button' class='btn' onclick='remove(this)' value='Remove'></td></tr>";
         jQuery("#table1").append(table_content);
         jQuery("#i_name").val("");
         jQuery("#qty").val("");
@@ -196,7 +204,7 @@ include_once("foot.php");
         jQuery('.amt').each(function (index,element) {
             total = total + parseFloat(jQuery(element).val());
         });
-        jQuery("#total_amt").val(total)
+        jQuery("#total_amt").val(total);
 
         var total_discount = 0;
         jQuery('.t_diss').each(function (index,element) {
@@ -211,8 +219,9 @@ include_once("foot.php");
         jQuery("#sb_tot").val((sub_total).toFixed(2));
         var net_tt = (sub_total).toFixed(0);
         jQuery("#nt_total").val(net_tt);
+        var points = (sub_total*5)/10000;
+        jQuery("#points").val(points);
 
-        count++;
     }
     function remove(aa) {
         jQuery(aa).parent().parent().remove();
@@ -221,7 +230,7 @@ include_once("foot.php");
         jQuery('.amt').each(function (index,element) {
             total = total + parseFloat(jQuery(element).val());
         });
-        jQuery("#total_amt").val(total)
+        jQuery("#total_amt").val(total);
 
         var total_discount = 0;
         jQuery('.t_diss').each(function (index,element) {
@@ -236,9 +245,24 @@ include_once("foot.php");
         jQuery("#sb_tot").val((sub_total).toFixed(2));
         var net_tt = (sub_total).toFixed(0);
         jQuery("#nt_total").val(net_tt);
-
+        var points = (sub_total*5)/10000;
+        jQuery("#points").val(points);
 
     }
+jQuery("#loyalty_no").blur(function () {
+    var d =jQuery("#loyalty_no").val();
+    jQuery.get("ajax.php",{LCN:d},function(data){
+       jQuery("#cid").val(data);
+    });
+
+
+    var e =jQuery("#loyalty_no").val();
+    jQuery.get("ajax2.php",{PS:e},function(data){
+        jQuery("#pts").val(data);
+    });
+
+
+});
 
 
 

@@ -14,6 +14,7 @@ class grocery_items{
     public $manufacturer_name;
     public $marketer_name;
     public $description;
+    public $price;
 
     private $db;
 
@@ -23,14 +24,26 @@ class grocery_items{
     }
     function register()
     {
-        $sql = "insert into grocery_items(git_name,brand_name,manufacturer,marketer,description)
-                values ('$this->it_name','$this->brand_name','$this->manufacturer_name','$this->marketer_name','$this->description')";
+        $sql = "insert into grocery_items(git_name,brand_name,manufacturer,marketer,description,price)
+                values ('$this->it_name','$this->brand_name','$this->manufacturer_name','$this->marketer_name','$this->description','$this->price')";
         $this->db->query($sql);
+
+        $inid= $this->db->insert_id;
+        $path = "pimg/$inid.jpg";
+        move_uploaded_file($_FILES["item_logo"]["tmp_name"],$path);
+
         return true;
     }
     function update($id)
     {
-        $sql="update grocery_items set git_name='$this->it_name',brand_name='$this->brand_name',manufacturer='$this->manufacturer_name',marketer='$this->marketer_name',description='$this->description'
+
+        if (isset($_FILES["item_logo"])){
+            $inid = $id;
+            $path = "pimg/$inid.jpg";
+            move_uploaded_file($_FILES["item_logo"]["tmp_name"],$path);
+
+        }
+        $sql="update grocery_items set git_name='$this->it_name',brand_name='$this->brand_name',manufacturer='$this->manufacturer_name',marketer='$this->marketer_name',description='$this->description',price='$this->price'
               where git_id=$id";
         $this->db->query($sql);
         return true;
@@ -54,6 +67,7 @@ class grocery_items{
         $g->manufacturer_name=$row['manufacturer'];
         $g->marketer_name=$row['marketer'];
         $g->description=$row['description'];
+        $g->price=$row['price'];
 
         return $g;
     }
@@ -71,7 +85,7 @@ class grocery_items{
             $g->manufacturer_name=$row['manufacturer'];
             $g->marketer_name=$row['marketer'];
             $g->description=$row['description'];
-
+            $g->price=$row['price'];
             $ar[]=$g;
         }
         return $ar;

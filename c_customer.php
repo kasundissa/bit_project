@@ -15,12 +15,14 @@ class customer{
     public $cus_address;
     public $cus_mobile;
     public $cus_email;
+    public $total_points;
 
     private $db;
 
     function __construct()
     {
         $this->db=new mysqli(server,username,password,dbname);
+        $this->loyalty_no= rand(100000000,999999999);
     }
     function register()
     {
@@ -67,7 +69,7 @@ class customer{
     }
     function getall()
     {
-        $sql="select * from customer where cus_status='act'";
+        $sql="select *,sum(points) tot  from customer,points where cus_status='act' and customer.cus_ID=points.cus_ID group by  customer.cus_ID";
         $res=$this->db->query($sql);
         $ar=array();
         while($row=$res->fetch_array())
@@ -81,9 +83,35 @@ class customer{
             $c->cus_address=$row['cus_address'];
             $c->cus_mobile=$row['cus_mobile'];
             $c->cus_email=$row['cus_email'];
+            $c->total_points=$row['tot'];
             $ar[]=$c;
         }
         return $ar;
+    }
+
+    function getbycode($LCN)
+    {
+        $sql = "select * from customer where cus_status='act' and loyalty_card_no=$LCN ";
+        $res = $this->db->query($sql);
+
+        $row = $res->fetch_array();
+        $c = new customer();
+        $c->cus_ID=$row['cus_ID'];
+        $c->cus_Name=$row['cus_Name'];
+        $c->cus_NIC=$row['cus_NIC'];
+        $c->loyalty_no=$row['loyalty_card_no'];
+        $c->dob=$row['date_of_birth'];
+        $c->cus_address=$row['cus_address'];
+        $c->cus_mobile=$row['cus_mobile'];
+        $c->cus_email=$row['cus_email'];
+
+        return $c;
+    }
+    function getpoints($PS){
+        $sql = "select sum(points) from points where cus_ID=$PS";
+        $a = $this->db->query($sql);
+
+        return $a;
     }
 }
 ?>

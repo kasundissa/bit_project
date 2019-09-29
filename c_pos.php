@@ -9,7 +9,6 @@ include_once("config.php");
 class pos{
 
   public $pos_id;
-  public $bill_no;
   public $tot_amount;
   public $tot_discount;
   public $sub_tot;
@@ -22,6 +21,10 @@ class pos{
   public $amt;
   public $discount;
 
+    public $pid;
+    public $points;
+    public $cus_id;
+
   private $db;
 
 
@@ -31,8 +34,8 @@ class pos{
     }
     function register()
     {
-        $sql="insert into pos(bill_no,tot_amount,tot_discount,sub_tot) 
-        values('$this->bill_no','$this->tot_amount','$this->tot_discount','$this->sub_tot')";
+        $sql="insert into pos(tot_amount,tot_discount,sub_tot) 
+        values('$this->tot_amount','$this->tot_discount','$this->sub_tot')";
         $this->db->query($sql);
         //echo $sql;
         $pid=$this->db->insert_id;
@@ -47,8 +50,11 @@ class pos{
             $c++;
             //  echo $sql;
         }
+        $sql2 = "insert into points(points,pos_id,cus_ID)
+                values ('$this->points','$pid','$this->cus_id')";
+        $this->db->query($sql2);
+        //echo($sql2);
 
         return true;
     }
-
 }

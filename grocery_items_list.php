@@ -22,11 +22,11 @@ $arr=$g->getall();
 include_once("head.php");
 ?>
 <table class="table">
-    <tr><th>Item ID</th><th>Item Name</th><th>Brand Name</th><th>Manufacturer Name</th><th>Marketer Name</th><th>Description</th><th>Delete</th><th>Edit</th></tr>
+    <tr><th>Item ID</th><th>Item Name</th><th>Brand Name</th><th>Manufacturer Name</th><th>Marketer Name</th><th>Description</th><th>Price</th><th>Delete</th><th>Edit</th></tr>
     <?php
     foreach ($arr as $item)
     {
-        echo "<tr><td>$item->it_id</td><td>$item->it_name</td><td>$item->brand_name</td><td>$item->manufacturer_name</td><td>$item->marketer_name</td><td>$item->description</td><td onclick='del($item->it_id)'>del</td><td><a href='add_grocery_items.php?ed=$item->it_id'>edit</a></td></tr>";
+        echo "<tr><td>$item->it_id</td><td>$item->it_name</td><td>$item->brand_name</td><td>$item->manufacturer_name</td><td>$item->marketer_name</td><td>$item->description</td><td>$item->price</td><td onclick='del($item->it_id)'>del</td><td><a href='add_grocery_items.php?ed=$item->it_id'>edit</a></td></tr>";
     }
     ?>
 </table>

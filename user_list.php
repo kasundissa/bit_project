@@ -18,11 +18,11 @@ if(!isset($_SESSION["uid"]))
 ?>
 
 <table class="table">
-	<tr><th>User ID</th><th>Name</th><th>NIC</th><th>Date of Birth</th><th>Address</th><th>Mobile</th><th>Email</th><th>Delete</th><th>Edit</th></tr>
+	<tr><th>User ID</th><th>Name</th><th>NIC</th><th>Date of Birth</th><th>Address</th><th>Mobile</th><th>Email</th><th>Basic Salary</th><th>Delete</th><th>Edit</th></tr>
 	
 	<?php
 		foreach($arr as $item){
-			echo "<tr><td>$item->usr_ID</td><td>$item->usr_Name</td><td>$item->usr_NIC</td><td>$item->dob</td><td>$item->usr_address</td><td>$item->usr_mobile</td><td>$item->usr_email</td><td onclick='delu($item->usr_ID)'>del</td><td><a href='add_user.php?ed=$item->usr_ID'>edit</a></td></tr>";
+			echo "<tr><td>$item->usr_ID</td><td>$item->usr_Name</td><td>$item->usr_NIC</td><td>$item->dob</td><td>$item->usr_address</td><td>$item->usr_mobile</td><td>$item->usr_email</td><td>$item->basic_salary</td><td onclick='delu($item->usr_ID)'>del</td><td><a href='add_user.php?ed=$item->usr_ID'>edit</a></td></tr>";
 			
 		}
 	?>

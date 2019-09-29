@@ -15,6 +15,7 @@ if(isset($_POST["uname"])){
 	$u2->usr_address = $_POST["uaddress"];
 	$u2->usr_mobile = $_POST["umobile"];
 	$u2->usr_email = $_POST["uemail"];
+    $u2->basic_salary = $_POST["b_salary"];
 
 	if(isset($_POST["uid"])){
         $u2->update($_POST["uid"]);
@@ -89,6 +90,12 @@ include_once("head.php");
             <label class="control-label col-sm-2" >Email:</label>
             <div class="col-sm-10">
                 <input type="email" name="uemail" class="form-control" placeholder="e.g.:-john@gmail.com" value="<?=$u->usr_email?>" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" >Basic Salary:</label>
+            <div class="col-sm-10">
+                <input type="text" name="b_salary" class="form-control" placeholder="e.g.:-Rs.10000.00" value="<?=$u->basic_salary?>" required>
             </div>
         </div>
 		<input type="submit" class="btn">

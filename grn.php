@@ -133,7 +133,7 @@ include_once("head.php");
     </div>
     <table class="table table-responsive" border="2">
 
-        <tr><th>Item No</th><th>Drug Name</th><th>Pack Size</th><th>No of Packs</th><th>Batch No</th><th>Weight</th><th>Manufacture Date</th><th>Expire Date</th><th>Pack Price</th><th>Selling Price</th>
+        <tr><th>Drug Name</th><th>Pack Size</th><th>No of Packs</th><th>Batch No</th><th>Weight</th><th>Manufacture Date</th><th>Expire Date</th><th>Pack Price</th><th>Selling Price</th>
             <th>Cost</th><th>Remove</th></tr>
         <tbody id="tb1">
 
@@ -168,7 +168,7 @@ include_once("foot.php");
 
 
 <script>
-    var count = 0;
+
 
     function add() {
 
@@ -202,7 +202,7 @@ include_once("foot.php");
         if(s_price.length<1)
             return;
 
-        var tbcont="<tr><td>"+(count+1) +"</td><td><input type='text' id='dn2' value='"+d_name2+"'><input type='hidden' id='dn' readonly='readonly' value='"+d_name+"' name='dn[]' ></td><td><input size='8' type='text' id='ps' readonly='readonly' value='"+pk_size+"' name='ps[]'></td><td><input  size='8' type='text' id='np' readonly='readonly' value='"+no_pk+"' name='np[]'></td><td><input size='8' type='text' id='b_no' readonly='readonly' value='"+b_no+"' name='b_no[]'></td><td><input  size='8' type='text' id='wgt' readonly='readonly' value='"+weight+"' name='wgt[]'></td><td><input size='11' type='text' id='mdate' readonly='readonly' value='"+manufacture_date+"' name='mdate[]'></td><td><input  size='11' type='text' id='e_date' readonly='readonly' value='"+expire_date+"' name='e_date[]'></td><td><input size='8' type='text' id='up' readonly='readonly' value='"+u_price+"' name='up[]'></td><td><input size='8' type='text' id='sp' readonly='readonly' value='"+s_price+"' name='sp[]'></td><td><input size='8' type='text' class='total' readonly='readonly' value='"+tot+"' name='total[]'></td><td><input type='button' class='btn' onclick='remove(this)' value='Remove'></td></tr>";
+        var tbcont="<tr><td><input type='text' id='dn2' value='"+d_name2+"'><input type='hidden' id='dn' readonly='readonly' value='"+d_name+"' name='dn[]' ></td><td><input size='8' type='text' id='ps' readonly='readonly' value='"+pk_size+"' name='ps[]'></td><td><input  size='8' type='text' id='np' readonly='readonly' value='"+no_pk+"' name='np[]'></td><td><input size='8' type='text' id='b_no' readonly='readonly' value='"+b_no+"' name='b_no[]'></td><td><input  size='8' type='text' id='wgt' readonly='readonly' value='"+weight+"' name='wgt[]'></td><td><input size='11' type='text' id='mdate' readonly='readonly' value='"+manufacture_date+"' name='mdate[]'></td><td><input  size='11' type='text' id='e_date' readonly='readonly' value='"+expire_date+"' name='e_date[]'></td><td><input size='8' type='text' id='up' readonly='readonly' value='"+u_price+"' name='up[]'></td><td><input size='8' type='text' id='sp' readonly='readonly' value='"+s_price+"' name='sp[]'></td><td><input size='8' type='text' class='total' readonly='readonly' value='"+tot+"' name='total[]'></td><td><input type='button' class='btn' onclick='remove(this)' value='Remove'></td></tr>";
         jQuery("#tb1").append(tbcont);
 
         jQuery("#drg_name").val("");
@@ -220,7 +220,7 @@ include_once("foot.php");
             total = total + parseFloat(jQuery(element).val());
         });
         jQuery("#t_cost").val(total);
-        count++;
+
     }
     function remove(aa) {
         jQuery(aa).parent().parent().remove();

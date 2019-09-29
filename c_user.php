@@ -9,7 +9,8 @@ class user{
 	public $usr_address;
 	public $usr_mobile;
 	public $usr_email;
-	
+	public $basic_salary;
+
 	private $db;
 	
 	function __construct()
@@ -18,8 +19,8 @@ class user{
 	}
 	function register()
     {
-		$sql="insert into user(usr_Name,usr_password,usr_NIC,date_of_birth,usr_address,usr_mobile,usr_email) 
-             values('$this->usr_Name',md5('$this->usr_password'),'$this->usr_NIC','$this->dob','$this->usr_address','$this->usr_mobile','$this->usr_email')";
+		$sql="insert into user(usr_Name,usr_password,usr_NIC,date_of_birth,usr_address,usr_mobile,usr_email,basic_salary) 
+             values('$this->usr_Name',md5('$this->usr_password'),'$this->usr_NIC','$this->dob','$this->usr_address','$this->usr_mobile','$this->usr_email','$this->basic_salary')";
 		
 		//echo $sql;
 		
@@ -30,7 +31,7 @@ class user{
 
     function update($id)
     {
-        $sql="update user set usr_Name='$this->usr_Name',usr_password=md5('$this->usr_password'),usr_NIC='$this->usr_NIC',date_of_birth='$this->dob',usr_address='$this->usr_address',usr_mobile='$this->usr_mobile',usr_email='$this->usr_email'
+        $sql="update user set usr_Name='$this->usr_Name',usr_password=md5('$this->usr_password'),usr_NIC='$this->usr_NIC',date_of_birth='$this->dob',usr_address='$this->usr_address',usr_mobile='$this->usr_mobile',usr_email='$this->usr_email',basic_salary='$this->basic_salary'
               where usr_ID=$id";
 
         //echo $sql;
@@ -68,6 +69,7 @@ class user{
         $u->usr_address = $row['usr_address'];
         $u->usr_mobile = $row['usr_mobile'];
         $u->usr_email = $row['usr_email'];
+        $u->basic_salary = $row['basic_salary'];
 
         return $u;
     }
@@ -104,6 +106,7 @@ class user{
 			$u->usr_address=$row['usr_address'];
 			$u->usr_mobile=$row['usr_mobile'];
 			$u->usr_email=$row['usr_email'];
+            $u->basic_salary = $row['basic_salary'];
 			$ar[]=$u;
 		}
 		

@@ -95,11 +95,19 @@
                     </ul>
                 </li>
                 <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Forms</a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Employee's Salary</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-table"></i><a href="emp_salary.php">Add Salary</a></li>
+                        <li><i class="fa fa-table"></i><a href="salary_list.php">View Salary</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Items</a>
                     <ul class="sub-menu children dropdown-menu">
                         <li><i class="menu-icon fa fa-th"></i><a href="grn.php">GRN</a></li>
                         <li><i class="menu-icon fa fa-th"></i><a href="pos.php">POS</a></li>
                         <li><i class="menu-icon fa fa-th"></i><a href="sup_payments.php">Payments</a></li>
+                        <li><i class="menu-icon fa fa-th"></i><a href="return.php">Return</a></li>
                     </ul>
                 </li>
 

@@ -11,7 +11,7 @@ if (isset($_POST["iname"]))
     $g2->manufacturer_name = $_POST["manu_name"];
     $g2->marketer_name = $_POST["mktr_name"];
     $g2->description = $_POST["description"];
-
+    $g2->price = $_POST["price"];
 
     if(isset($_POST["uid"])){
         $g2->update($_POST["uid"]);
@@ -33,7 +33,7 @@ include_once("head.php");
 <head>
     <meta charset="UTF-8">
 </head>
-<form method="post" action="add_grocery_items.php" class="form-horizontal">
+<form enctype="multipart/form-data" method="post" action="add_grocery_items.php" class="form-horizontal">
     <?php
     if(isset($_GET['ed'])){
         $id=$_GET['ed'];
@@ -42,10 +42,17 @@ include_once("head.php");
 
 
     ?>
+
     <div class="form-group">
         <label class="control-label col-sm-3">Item Name:</label>
         <div class="col-sm-9">
             <input type="text" name="iname" class="form-control"  placeholder="e.g.:-Plaster" value="<?=$g->it_name?>" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-3">Item Logo:</label>
+        <div class="col-sm-9">
+            <input type="file" name="item_logo" class="form-control" required>
         </div>
     </div>
     <div class="form-group">
@@ -70,6 +77,12 @@ include_once("head.php");
         <label class="control-label col-sm-3">Description:</label>
         <div class="col-sm-9">
             <input type="text" name="description" class="form-control"  placeholder="e.g.:-Antibacterial Plaster" value="<?=$g->description?>" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-3">Price:</label>
+        <div class="col-sm-9">
+            <input type="text" name="price" class="form-control"  placeholder="e.g.:-Rs.0.00" value="<?=$g->price?>" required>
         </div>
     </div>
     <input type="submit" class="btn">

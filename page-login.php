@@ -73,7 +73,7 @@ if(isset($_POST["user_name"])) {
                                 <input type="checkbox"> Remember Me
                             </label>
                                     <label class="pull-right">
-                                <a href="#">Forgotten Password?</a>
+                                <a href="pages-forget.html">Forgotten Password?</a>
                             </label>
 
                                 </div>

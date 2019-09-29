@@ -45,15 +45,16 @@ include_once("head.php");
         $id=$_GET['ed'];
         echo "<input name ='uid' type='hidden' value='$id'>";
     }
-
-
     ?>
+
+
     <div class="form-group">
         <label class="control-label col-sm-2">Loyalty Card No:</label>
         <div class="col-sm-10">
-            <input type="text" name="l_no" class="form-control"  placeholder="e.g.:-0011223344" value="<?=$c->loyalty_no?>" required>
+            <input type="text" name="l_no" class="form-control" readonly="readonly" value="<?=$c->loyalty_no?>">
         </div>
     </div>
+
     <div class="form-group">
         <label class="control-label col-sm-2">Name:</label>
         <div class="col-sm-10">

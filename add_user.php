@@ -30,7 +30,7 @@ $u=new user();
 if(isset($_GET['ed'])){
     $u= $u->getbyid($_GET['ed']);
 }
-
+include_once("c_emp_salary.php");
 
 include_once("head.php");
 ?>

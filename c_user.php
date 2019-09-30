@@ -59,6 +59,9 @@ class user{
         $sql = "select * from user where usr_status='act' and usr_ID=$id";
         $res = $this->db->query($sql);
 
+
+        //echo $sql;
+
         $row = $res->fetch_array();
         $u = new user();
         $u->usr_ID = $row['usr_ID'];

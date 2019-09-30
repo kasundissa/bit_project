@@ -13,6 +13,7 @@ if (isset($_POST["ot"]))
 {
     $e = new emp_salary();
 
+    $e->month = $_POST["category"];
     $e->OT = $_POST["ot"];
     $e->bonus = $_POST["bonus"];
     $e->deduction = $_POST["deduction"];
@@ -32,11 +33,34 @@ include_once("head.php");
 <body>
 <h3>Employee's Salary</h3><br/>
 <form method="post" class="form-horizontal" action="emp_salary.php">
+    <div class="form-group">
+        <label class="control-label col-sm-4" >Month:</label>
+        <div class="col-sm-4">
+            <select name="category" class="form-control">
+                <option value="january">January</option>
+                <option value="february">February</option>
+                <option value="march">March</option>
+                <option value="april">April</option>
+                <option value="may">May</option>
+                <option value="june">June</option>
+                <option value="july">July</option>
+                <option value="august">August</option>
+                <option value="september">September</option>
+                <option value="october">October</option>
+                <option value="november">November</option>
+                <option value="december">December</option>
+            </select>
+        </div>
+    </div>
+    <br/>
+    <br/>
 <table class="table">
     <tr><th>User Name</th><th>OT</th><th>Bonus</th><th>Deduction</th></tr>
     <?php
     foreach ($a as $item){
+
         echo "<tr><td><input type='hidden' name='uid[]' value='$item->usr_ID'><input type='text' value='$item->usr_Name' readonly='readonly'></td><td><input type='text' name='ot[]'></td><td><input type='text' name='bonus[]'></td><td><input type='text' name='deduction[]'></td></tr>";
+
     }
     ?>
 </table>
@@ -47,3 +71,4 @@ include_once("head.php");
 <?php
 include_once("foot.php");
 ?>
+

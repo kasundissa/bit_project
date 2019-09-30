@@ -5,6 +5,9 @@
  * Date: 26-Sep-19
  * Time: 11:27 AM
  */
+include_once("c_emp_salary.php");
+$s = new emp_salary();
+$e = $s->getbyid($_POST['uid']);
 include_once("head.php");
 ?>
 <!DOCTYPE html>
@@ -17,7 +20,7 @@ include_once("head.php");
     <div class="form-group">
         <label class="control-label col-sm-2">User Name:</label>
         <div class="col-sm-10">
-            <input type="text" name="u_name" class="form-control">
+            <input type="text" name="u_name" class="form-control" value="">
         </div>
     </div><br/>
     <div class="form-group">
@@ -42,13 +45,13 @@ include_once("head.php");
     <div class="form-group">
         <label class="control-label col-sm-2">Bonus:</label>
         <div class="col-sm-10">
-            <input type="text" name="bonus" class="form-control">
+            <input type="text" name="bonus" class="form-control" value="<?=$e->bonus?>">
         </div>
     </div>  <br/>
     <div class="form-group">
         <label class="control-label col-sm-2">OT:</label>
         <div class="col-sm-10">
-            <input type="text" name="ot" class="form-control">
+            <input type="text" name="ot" class="form-control" value="<?=$e->OT?>">
         </div>
     </div><br/>
     <hr>

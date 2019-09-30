@@ -12,6 +12,10 @@ class emp_salary{
     public $bonus;
     public $deduction;
     public $usr_ID;
+    public $month;
+    public $epf;
+    public $etf;
+    public $tot_salary;
 
     private $db;
 
@@ -21,15 +25,46 @@ class emp_salary{
     }
     function register()
     {
+        include_once("c_user.php");
+        $em = new user();
+
+
         $c=0;
         foreach ($this->usr_ID as $item) {
-            $sql = "insert into salary_details(OT,bonus,deduction,usr_ID)
-               values('".$this->OT[$c]."','".$this->bonus[$c]."','".$this->deduction[$c]."','".$this->usr_ID[$c]."') ";
+
+            $emd = $em->getbyid($this->usr_ID[$c]);
+            $b_sal = $emd->basic_salary;
+            //echo $b_sal;
+
+            $epf = $b_sal * 0.08;
+            $etf = $b_sal * 0.02;
+            $tot_sal = $b_sal - $epf - $etf + $this->OT[$c] + $this->bonus[$c] - $this->deduction[$c];
+
+            $sql = "insert into salary_details(month,OT,bonus,deduction,usr_ID,epf,etf,tot_salary)
+               values('" . $this->month . "','" . $this->OT[$c] . "','" . $this->bonus[$c] . "','" . $this->deduction[$c] . "','" . $this->usr_ID[$c] . "','" . $epf . "','" . $etf . "','" . $tot_sal . "') ";
             $this->db->query($sql);
             $c++;
-            // echo $sql;
+            echo $sql;
         }
         return true;
+    }
+    function getbyid($id)
+    {
+        $sql = "select * from salary_details where sid=$id";
+        $res = $this->db->query($sql);
+
+        $row = $res->fetch_array();
+        $e = new emp_salary();
+        $e->month = $row['month'];
+        $e->OT = $row['OT'];
+        $e->bonus = $row['bonus'];
+        $e->deduction = $row["deduction"];
+        $e->usr_ID = $row['usr_ID'];
+        $e->epf = $row["epf"];
+        $e->etf = $row["etf"];
+        $e->tot_salary = $row["tot_salary"];
+
+        return $e;
     }
     function getall()
     {
@@ -38,10 +73,14 @@ class emp_salary{
         $ar=array();
         while($row=$res->fetch_array()){
             $e=new emp_salary();
+            $e->month = $row['month'];
             $e->OT = $row['OT'];
             $e->bonus = $row['bonus'];
             $e->deduction = $row["deduction"];
             $e->usr_ID = $row['usr_ID'];
+            $e->epf = $row["epf"];
+            $e->etf = $row["etf"];
+            $e->tot_salary = $row["tot_salary"];
             $ar[]=$e;
         }
         return $ar;

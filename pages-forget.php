@@ -1,3 +1,12 @@
+<?php
+include_once("c_user.php");
+if (isset($_POST['email'])) {
+    $u = new user();
+    $y = $u->password_recovery($_POST['email']);
+
+    header("location:pwd_recovery.php");
+}
+?>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -43,12 +52,12 @@
                     </a>
                 </div>
                 <div class="login-form">
-                    <form>
+                    <form method="post" action="pages-forget.php">
                         <div class="form-group">
                             <label>Email address</label>
-                            <input type="email" class="form-control" placeholder="Email">
+                            <input type="email" name="email" class="form-control" placeholder="Email">
                         </div>
-                            <button type="submit" class="btn btn-primary btn-flat m-b-15">Submit</button>
+                       <button type="submit" class="btn btn-primary btn-flat m-b-15">Submit</button>
 
                     </form>
                 </div>

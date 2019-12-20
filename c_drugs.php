@@ -17,27 +17,25 @@ class drugs{
     public $cat;
     private $db;
 
-    function __construct()
+    function __construct() //automatically call this function when you create an object from a class
     {
         $this->db=new mysqli(server,username,password,dbname);
     }
-    function register()
+    function register() //to store drug details in a database
     {
         $sql="insert into drugs(drg_name,brand_name,manufacturer,marketer,description,catid)
-        values('$this->drug_name','$this->brand_name','$this->manufacturer_name','$this->marketer_name','$this->description','$this->cat_id')";
-        $this->db->query($sql);
+        values('$this->drug_name','$this->brand_name','$this->manufacturer_name','$this->marketer_name',
+        '$this->description','$this->cat_id')";
+        $this->db->query($sql); //to execute the query
         return true;
     }
-    function update($id)
+    function update($id) //to update the drug details in a database
     {
         $sql="update drugs set drg_name='$this->drug_name',brand_name='$this->brand_name',manufacturer='$this->manufacturer_name',marketer='$this->marketer_name',description='$this->description',catid='$this->cat_id' where drg_id=$id";
-
-      // echo $sql;
-
         $this->db->query($sql);
         return true;
     }
-    function remove($did)
+    function remove($did) //to remove a drug detail in a database
     {
         $sql="update drugs set drug_status='del' where drg_id=$did";
         $this->db->query($sql);

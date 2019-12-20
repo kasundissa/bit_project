@@ -56,16 +56,19 @@ include_once("head.php");
                 <input type="text" name="uname" class="form-control"  placeholder="e.g.:-John" value="<?=$u->usr_Name?>" required>
             </div>
         </div>
-        <div class="form-group">
+        <?php
+        if (!isset($_GET['ed']))
+        echo('<div class="form-group">
             <label class="control-label col-sm-2">Password:</label>
             <div class="col-sm-10">
-                <input type="password" name="upassword" class="form-control"  placeholder="e.g.:-1234" value="<?=$u->usr_password?>" required>
+                <input type="password" name="upassword" class="form-control"  placeholder="e.g.:-1234" required>
             </div>
-        </div>
+        </div>');
+        ?>
         <div class="form-group">
             <label class="control-label col-sm-2" >NIC:</label>
             <div class="col-sm-10">
-                <input type="text" name="unic" class="form-control" placeholder="e.g.:-123456789V" value="<?=$u->usr_NIC?>" required>
+                <input type="text" name="unic" class="form-control" pattern="[0-9]{9}[X/V]|[0-9]{12}" placeholder="e.g.:-123456789V or 200034506789" value="<?=$u->usr_NIC?>" required>
             </div>
         </div>
         <div class="form-group">
@@ -83,7 +86,7 @@ include_once("head.php");
         <div class="form-group">
             <label class="control-label col-sm-2" >Mobile:</label>
             <div class="col-sm-10">
-                <input type="text" name="umobile" class="form-control"  placeholder="e.g.:-0777712345" value="<?=$u->usr_mobile?>" required>
+                <input type="text" name="umobile" pattern="[0][0-9]{9}" class="form-control"  placeholder="e.g.:-0777712345" value="<?=$u->usr_mobile?>" required>
             </div>
         </div>
         <div class="form-group">
@@ -95,7 +98,7 @@ include_once("head.php");
         <div class="form-group">
             <label class="control-label col-sm-2" >Basic Salary:</label>
             <div class="col-sm-10">
-                <input type="text" name="b_salary" class="form-control" placeholder="e.g.:-Rs.10000.00" value="<?=$u->basic_salary?>" required>
+                <input type="text" name="b_salary" class="form-control" pattern="[0-9]{*}" placeholder="e.g.:-10000" value="<?=$u->basic_salary?>" required>
             </div>
         </div>
 		<input type="submit" class="btn">

@@ -27,3 +27,12 @@
 </body>
 
 </html>
+<script>
+    jQuery('.numonly').bind('input paste', function(){
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
+
+    jQuery('.deconly').bind('input paste', function(){
+        this.value = this.value.replace(/([^0-9]*[.][0-9]+)/g, '');
+    });
+</script>

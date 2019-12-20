@@ -50,10 +50,34 @@ class user{
 		$this->db->query($sql);
 		return true;
 	}
-	function change_pw()
+	function reset_pwd($email,$pin_code,$new_pwd,$con_pwd)
     {
-		
+		$sql = "select * from user where usr_email='$email' and random_no='$pin_code'";
+        $res = $this->db->query($sql);
+        if ($res->num_rows==1)
+        {
+            $sql2 = "update user set usr_password=md5('$new_pwd') where usr_email='$email'";
+            $this->db->query($sql2);
+            return true;
+
+        }
+        else
+            return false;
 	}
+	function change_pwd($email,$old_password,$new_password,$confirm_password)
+    {
+        $sql = "select * from user where usr_email='$email' and usr_password=md5('$old_password')";
+        //echo $sql;
+        $res = $this->db->query($sql);
+        if ($res->num_rows==1)
+        {
+            $sql2 = "update user set usr_password=md5('$new_password') where usr_email='$email'";
+            $this->db->query($sql2);
+            return true;
+        }
+        else
+            return false;
+    }
 	function getbyid($id)
     {
         $sql = "select * from user where usr_status='act' and usr_ID=$id";
@@ -92,6 +116,37 @@ class user{
         else
             return false;
 
+    }
+    function password_recovery($eml)
+    {
+        $r=rand(1000000,9999999);
+        $sql="update user set random_no=$r where usr_email='$eml'";
+        $this->db->query($sql);
+
+        include_once("mail/src/PHPMailer.php");
+        include_once("mail/src/SMTP.php");
+
+        $mail = new PHPMailer(); // create a new object
+        $mail->IsSMTP(); // enable SMTP
+        $mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
+        $mail->SMTPAuth = true; // authentication enabled
+        $mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for Gmail
+        $mail->Host = "smtp.gmail.com";
+        $mail->Port = 465; // or 587
+        $mail->IsHTML(true);
+        $mail->Username = "kasun.disanayake@gmail.com";
+        $mail->Password = "kasundisa";
+        $mail->SetFrom("kasun.disanayake@gmail.com");
+        $mail->Subject = "Password Recovery";
+        $mail->Body = "your pin no is ".$r;
+        $mail->AddAddress("$eml");
+
+        if(!$mail->Send()) {
+            echo "Mailer Error: " . $mail->ErrorInfo;
+        } else {
+            echo "Message has been sent";
+        }
+        return true;
     }
 
 	function getall()

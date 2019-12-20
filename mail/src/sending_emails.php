@@ -22,3 +22,5 @@ $mail->AddAddress("diyasenkuma@gmail.com");
     echo "Message has been sent";
  }
  ?>
+
+

@@ -56,7 +56,7 @@ include_once("head.php");
     <div class="form-group">
         <label class="control-label col-sm-2">Contact No:</label>
         <div class="col-sm-10">
-            <input type="text" name="contact_no" class="form-control"  placeholder="e.g.:-0777712345" value="<?=$s->contact_no?>" required>
+            <input type="text" name="contact_no" class="form-control"  pattern="[0][0-9]{9}"  placeholder="e.g.:-0777712345" value="<?=$s->contact_no?>" required>
         </div>
     </div>
     <input type="submit" class="btn">

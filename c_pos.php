@@ -14,7 +14,7 @@ class pos{
   public $sub_tot;
 
 
-
+  public $sold_product_id;
   public $i_name;
   public $price;
   public $qty;
@@ -32,6 +32,87 @@ class pos{
     {
         $this->db=new mysqli(server,username,password,dbname);
     }
+
+
+    function getbyid($id)
+    {
+        $sql = "select * from pos,sold_product where pos.pos_id=sold_product.pos_id and pos.pos_id=$id";
+        $res = $this->db->query($sql);
+		$ar=array();
+		while($row=$res->fetch_array()) {
+           $p=new pos();
+
+            $p->sold_product_id=$row["sp_id"];
+            $p->discount=$row["discount"];
+            $p->i_name=$row["it_name"];
+            $p->price=$row["price"];
+            $p->qty=$row["quantity"];
+            $p->amt=$row["amount"];
+
+            $ar[]=$p;
+        }
+
+        return $ar;
+    }
+    function get_by_id_for_return($id)
+    {
+        $sql = "select * from items_return where pos_id=$id";
+        $res = $this->db->query($sql);
+        $ar = array();
+        if($res->num_rows==0) {
+
+            $sql = "select * from pos,sold_product where pos.pos_id=sold_product.pos_id and (date(current_date())-date(`date`))<14 and pos.pos_id=$id";
+            $res = $this->db->query($sql);
+            include_once("c_drugs.php");
+            $d = new drugs();
+
+            while ($row = $res->fetch_array()) {
+                $p = new pos();
+
+                $p->sold_product_id = $row["sp_id"];
+                $p->discount = $row["discount"];
+                $p->i_name = $d->getbyid($row["it_name"]);
+                $p->price = $row["price"];
+                $p->qty = $row["quantity"];
+                $p->amt = $row["amount"];
+
+
+                $ar[] = $p;
+            }
+        }
+        return $ar;
+    }
+    function getall()
+    {
+        $filter="";
+        if (isset($_POST["st_date"])) {
+            $d1 = $_POST["st_date"];
+            $d2 = $_POST["end_date"];
+            $cat = $_POST["category"];
+            $sql = "select * from pos,sold_product where pos.pos_id=sold_product.pos_id AND date(`date`)>='$d1' AND date(`date`)<='$d2' AND sold_product.it_name='$cat'";
+            //echo $sql;
+            $res = $this->db->query($sql);
+            $ar = array();
+            while ($row = $res->fetch_array()) {
+                $p = new pos();
+
+                $p->discount = $row["discount"];
+                $p->i_name = $row["it_name"];
+                $p->price = $row["price"];
+                $p->qty = $row["quantity"];
+                $p->amt = $row["amount"];
+
+                $ar[] = $p;
+            }
+
+
+            return $ar;
+        }
+    }
+
+
+
+
     function register()
     {
         $sql="insert into pos(tot_amount,tot_discount,sub_tot) 
@@ -50,11 +131,27 @@ class pos{
             $c++;
             //  echo $sql;
         }
-        $sql2 = "insert into points(points,pos_id,cus_ID)
-                values ('$this->points','$pid','$this->cus_id')";
-        $this->db->query($sql2);
+        if (!$_POST["pts"]>0){
+            $sql2 = "insert into points(points,pos_id,cus_ID)
+                    values ('$this->points','$pid','$this->cus_id')";
+            $this->db->query($sql2);
+        }
+
         //echo($sql2);
+
+        return $pid;
+    }
+    function reset_points($rsp,$points,$pid)
+    {
+        $sql = "insert into points(points,cus_ID,pos_id)
+                values ($points*(-1),$rsp,$pid)";
+
+       // $sql = "insert into points set points=0.00 where cus_ID=$rsp";
+        $this->db->query($sql);
 
         return true;
     }
+
+
+
 }

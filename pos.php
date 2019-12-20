@@ -23,23 +23,25 @@ if (isset($_POST["total_amount"]))
     $ps->qty=$_POST["qnty"];
     $ps->amt=$_POST["amt"];
     $ps->discount=$_POST["t_diss"];
-    $ps->points = $_POST["points"];
 
+    $ps->points = $_POST["points"];
     $ps->cus_id = $_POST["cid"];
 
-        $ps->register();
+
+
+       $xxx= $ps->register();
 
 }
-/*
-include_once("c_points.php");
-if (isset($_POST["points"])) {
-    $pnt = new points();
-
-
-
-    $pnt->register();
+include_once("c_drugs.php");
+$dr= new drugs();
+$drg_cat=$dr->getall();
+if(isset($_POST["pts"])){
+ $p = new pos();
+   // if ($_POST["pts"]>$_POST["sub_total"]) {
+      //  $ps->points = $_POST["balance"];
+   // }
+ $r = $p->reset_points($_POST["cid"],$_POST["pts"],$xxx);
 }
-*/
 include_once("head.php");
 ?>
 <body>
@@ -50,19 +52,23 @@ include_once("head.php");
      <div class="form-group col-sm-6">
          <label class="control-label col-sm-6" >Loyalty Code:</label>
          <div class="col-sm-6">
-             <input type="text" name="loyalty_code" id="loyalty_no" class="form-control" >
+             <input type="text" name="loyalty_code" id="loyalty_no" class="form-control numonly" >
          </div>
      </div>
-<input type="text" name="cid" id="cid">
+<input type="hidden" name="cid" id="cid">
         <div class="form-group col-sm-12">
             <h3>Product Details</h3>
         </div>
         <div class="form-group col-sm-4">
-            <label class="control-label col-sm-6" >Item Type:</label>
+            <label class="control-label col-sm-6" >Item Name:</label>
             <div class="col-sm-6">
-                <select name="category" class="form-control">
-                    <option>Drugs</option>
-                    <option>Grocery Items</option>
+                <select name="drg_category" class="form-control" id="drg_name">
+                    <?php
+                    foreach ($drg_cat as $drg_item){
+                        echo "<option value='$drg_item->drug_id'>$drg_item->drug_name</option>";
+                    }
+
+                    ?>
                 </select>
             </div>
             <br/>
@@ -80,21 +86,16 @@ include_once("head.php");
 
         </div>
         <div class="form-group col-sm-4">
-            <label class="control-label col-sm-6" >Item Name:</label>
-            <div class="col-sm-6">
-                <input type="text" name="item_name" id="i_name" class="form-control">
-            </div>
-            <br/>
-            <br/>
+
             <label class="control-label col-sm-6" >Discount (%):</label>
             <div class="col-sm-6">
-                <input type="text" name="discount" id="discount" value="0" class="form-control">
+                <input type="text" name="discount" id="discount" value="0" class="form-control numonly">
             </div>
         </div>
         <div class="form-group col-sm-4">
             <label class="control-label col-sm-6" >Quantity:</label>
             <div class="col-sm-6">
-                <input type="text" name="qty" id="qty" class="form-control">
+                <input type="text" name="qty" id="qty" class="form-control numonly">
             </div>
         <br/>
             <br/>
@@ -123,19 +124,19 @@ include_once("head.php");
             <br/>
             <label class="control-label col-sm-6" >Cash:</label>
             <div class="col-sm-6">
-                <input type="text" name="cash" class="form-control">
+                <input type="text" name="cash" id="cash" class="form-control numonly">
             </div>
             <br/>
             <br/>
             <label class="control-label col-sm-6" >Points:</label>
             <div class="col-sm-6">
-                <input type="text" name="points" id="pts" class="form-control">
+                <input type="text" name="pts" id="pts" class="form-control">
             </div>
             <br/>
             <br/>
             <label class="control-label col-sm-6" >Balance:</label>
             <div class="col-sm-6">
-                <input type="text" name="balance" class="form-control">
+                <input type="text" name="balance" id="balance" class="form-control">
             </div>
         </div>
         <div class="form-group col-sm-6">
@@ -164,10 +165,10 @@ include_once("head.php");
         </div>
 
 
-        <input type="button" class="btn" value="Save and Print">
+     <!--   <input type="button" class="btn" value="Save and Print">-->
         <input type="submit" class="btn" value="Save">
         <a href="pos.php"> <input type="button" class="btn" value="Cancel"></a>
-        <input type="button" class="btn" value="Load Points">
+        <input type="button" class="btn" id="loadpoint" value="Load Points">
     <input type="hidden" id="points" name="points">
 </form>
 </body>
@@ -177,15 +178,15 @@ include_once("foot.php");
 <script>
 
     function add() {
-        var it_name = jQuery("#i_name").val();
+        var d_name = jQuery("#drg_name").val();
+        var d_name2 = jQuery("#drg_name option:selected").text();
         var quty = jQuery("#qty").val();
         var price = jQuery("#price").val();
         var amount = (price*quty).toFixed(2);
         var diss = jQuery("#discount").val();
         var tot_diss = ((amount*diss)/100).toFixed(2);
 
-        if (it_name.length<1)
-            return;
+
         if (quty.length<1)
             return;
         if (price.length<1)
@@ -193,9 +194,9 @@ include_once("foot.php");
         if (diss.length<1)
             return;
 
-        var table_content = " <tr><td><input type='text' id='in' readonly='readonly' value='"+it_name+"' name='in[]' ></td><td><input size='6' type='text' id='prc' readonly='readonly' value='"+price+"' name='prc[]' ></td><td><input size='6' type='text' id='qnty' readonly='readonly' value='"+quty+"' name='qnty[]' ></td><td><input size='6' type='text' class='amt' readonly='readonly' value='"+amount+"' name='amt[]' ></td><td><input size='6' type='text' class='t_diss' readonly='readonly' value='"+tot_diss+"' name='t_diss[]' ></td><td><input type='button' class='btn' onclick='remove(this)' value='Remove'></td></tr>";
+        var table_content = " <tr><td><input type='text' id='dn2' value='"+d_name2+"'><input type='hidden' readonly='readonly' id='in'  value='"+d_name+"' name='in[]' ></td><td><input size='6' type='text' id='prc' readonly='readonly' value='"+price+"' name='prc[]' ></td><td><input size='6' type='text' id='qnty' readonly='readonly' value='"+quty+"' name='qnty[]' ></td><td><input size='6' type='text' class='amt' readonly='readonly' value='"+amount+"' name='amt[]' ></td><td><input size='6' type='text' class='t_diss' readonly='readonly' value='"+tot_diss+"' name='t_diss[]' ></td><td><input type='button' class='btn' onclick='remove(this)' value='Remove'></td></tr>";
         jQuery("#table1").append(table_content);
-        jQuery("#i_name").val("");
+        jQuery("#drg_name").val("");
         jQuery("#qty").val("");
         jQuery("#price").val("");
         jQuery("#discount").val("");
@@ -254,16 +255,22 @@ jQuery("#loyalty_no").blur(function () {
     jQuery.get("ajax.php",{LCN:d},function(data){
        jQuery("#cid").val(data);
     });
+});
+jQuery("#loadpoint").click(function () {
 
-
-    var e =jQuery("#loyalty_no").val();
-    jQuery.get("ajax2.php",{PS:e},function(data){
+    var e = jQuery("#cid").val();
+    jQuery.get("ajax2.php", {PS: e},function(data){
         jQuery("#pts").val(data);
     });
-
-
 });
+jQuery("#cash").change(function () {
+    var cash = jQuery("#cash").val();
+    var points = jQuery("#pts").val();
+    var net_ttl = jQuery("#nt_total").val();
 
-
+    var p_amt = net_ttl-points;
+    var bal =cash-p_amt;
+    jQuery("#balance").val((bal).toFixed(2));
+});
 
 </script>

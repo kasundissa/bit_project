@@ -55,11 +55,11 @@ include_once("head.php");
     <br/>
     <br/>
 <table class="table">
-    <tr><th>User Name</th><th>OT</th><th>Bonus</th><th>Deduction</th></tr>
+    <tr><th>Employee Name</th><th>OT</th><th>Bonus</th><th>Deduction</th></tr>
     <?php
     foreach ($a as $item){
 
-        echo "<tr><td><input type='hidden' name='uid[]' value='$item->usr_ID'><input type='text' value='$item->usr_Name' readonly='readonly'></td><td><input type='text' name='ot[]'></td><td><input type='text' name='bonus[]'></td><td><input type='text' name='deduction[]'></td></tr>";
+        echo "<tr><td><input type='hidden' name='uid[]' value='$item->usr_ID'><input type='text' value='$item->usr_Name' readonly='readonly'></td><td><input type='text' name='ot[]' class='numonly' pattern='[0-9]{*}|[0-9]{*}[.][0-9]{2}' required></td><td><input type='text' name='bonus[]' class='numonly' required></td><td><input type='text' class='numonly' name='deduction[]' required></td></tr>";
 
     }
     ?>

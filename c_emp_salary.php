@@ -44,17 +44,21 @@ class emp_salary{
                values('" . $this->month . "','" . $this->OT[$c] . "','" . $this->bonus[$c] . "','" . $this->deduction[$c] . "','" . $this->usr_ID[$c] . "','" . $epf . "','" . $etf . "','" . $tot_sal . "') ";
             $this->db->query($sql);
             $c++;
-            echo $sql;
+            //echo $sql;
         }
         return true;
     }
-    function getbyid($id)
+    function getbyid($id,$month)
     {
-        $sql = "select * from salary_details where sid=$id";
+        $sql = "select * from salary_details join `user` on salary_details.usr_ID=`user`.usr_ID where `user`.usr_ID=$id AND salary_details.month='$month'";
         $res = $this->db->query($sql);
-
+        //echo $sql;
         $row = $res->fetch_array();
         $e = new emp_salary();
+        $e->name = $row['usr_Name'];
+        $e->address = $row['usr_address'];
+        $e->phone = $row['usr_mobile'];
+        $e->basic_sal = $row['basic_salary'];
         $e->month = $row['month'];
         $e->OT = $row['OT'];
         $e->bonus = $row['bonus'];

@@ -45,28 +45,29 @@ include_once("head.php");
     <div class="form-group">
         <label class="control-label col-sm-2">Amount:</label>
         <div class="col-sm-10">
-            <input type="text" name="amt" class="form-control"  placeholder="e.g.:-Rs.0.00" required>
+            <input type="text" name="amt"  class="form-control numonly"  placeholder="e.g.:-Rs.0.00" required>
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group" >
         <label class="control-label col-sm-2">Payment Method</label>
         <div class="col-sm-10">
-        <select name="category1" class="form-control">
-            <option>Cash</option>
-            <option>Cheque</option>
+        <select name="category1" id="category" class="form-control" onchange="cheque()">
+            <option value="cheque">Cheque</option>
+            <option value="cash">Cash</option>
+
         </select>
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group" id="cheque_no">
         <label class="control-label col-sm-2">Cheque No:</label>
         <div class="col-sm-10">
             <input type="text" name="chq_no" class="form-control"  placeholder="e.g.:-0123456">
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group" id="date_of_cheque">
         <label class="control-label col-sm-2">Date of Cheque:</label>
         <div class="col-sm-10">
-            <input type="date" name="doc" class="form-control">
+            <input type="date" name="doc" class="form-control" >
         </div>
     </div>
 
@@ -78,3 +79,22 @@ include_once("head.php");
 <?php
 include_once("foot.php");
 ?>
+<script>
+    function cheque() {
+
+        var category = jQuery("#category").val();
+        var cq_no = jQuery("#cheque_no");
+        var cq_date = jQuery("#date_of_cheque");
+       // alert(category);
+        if (category=="cash") {
+
+            cq_no.hide();
+            cq_date.hide();
+        }
+        else{
+            cq_no.show();
+            cq_date.show();
+        }
+    }
+</script>
+

@@ -4,7 +4,7 @@ if (isset($_GET["logout"])){
     session_destroy();
 }
 include_once("c_user.php");
-
+$r="";
 $u = new user();
 
 if(isset($_POST["user_name"])) {
@@ -12,7 +12,16 @@ if(isset($_POST["user_name"])) {
 
     if($rep == true)
         header("location:welcome.php");
+    else
+    {
+        $r='<div class="alert alert-danger fade in alert-dismissible show">
+ <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true" style="font-size:20px">×</span>
+  </button>    <strong>Error! </strong>User Name or Password is incorrect.
+</div>';
+    }
 }
+
 ?>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
@@ -49,7 +58,9 @@ if(isset($_POST["user_name"])) {
 
 <body class="bg-dark">
 
-
+<?php
+echo $r;
+?>
     <div class="sufee-login d-flex align-content-center flex-wrap">
         <div class="container">
             <div class="login-content">
@@ -69,11 +80,9 @@ if(isset($_POST["user_name"])) {
                                 <input type="password" class="form-control" placeholder="Password" name="user_password">
                         </div>
                                 <div class="checkbox">
-                                    <label>
-                                <input type="checkbox"> Remember Me
-                            </label>
+
                                     <label class="pull-right">
-                                <a href="pages-forget.html">Forgotten Password?</a>
+                                <a href="pages-forget.php">Forgotten Password?</a>
                             </label>
 
                                 </div>

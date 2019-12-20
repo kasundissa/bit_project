@@ -108,10 +108,12 @@ class customer{
         return $c;
     }
     function getpoints($PS){
-        $sql = "select sum(points) from points where cus_ID=$PS";
+        $sql = "select sum(points) ss from points where cus_ID=$PS";
+       // echo $sql;
         $a = $this->db->query($sql);
+        $row = $a->fetch_array();
+        return $row["ss"];
 
-        return $a;
     }
 }
 ?>

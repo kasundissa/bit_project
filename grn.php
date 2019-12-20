@@ -48,7 +48,7 @@ include_once("head.php");
     <div class="form-group col-sm-6">
         <label class="control-label col-sm-3" >Ref No:</label>
         <div class="col-sm-9">
-            <input type="text" name="ref_no" class="form-control" placeholder="e.g.:-0000012345"  required>
+            <input type="text" name="ref_no"  class="form-control numonly" placeholder="e.g.:-0000012345"  required>
         </div>
     </div>
     <div class="form-group col-sm-6">
@@ -83,13 +83,13 @@ include_once("head.php");
     <div class="form-group col-sm-4">
         <label class="control-label col-sm-5" >Pack Size:</label>
         <div class="col-sm-7">
-            <input type="text" name="pak_size" id="pack_size"  placeholder="e.g.:-30" class="form-control">
+            <input type="text" name="pak_size" id="pack_size"  placeholder="e.g.:-30" class="form-control numonly">
         </div>
     </div>
     <div class="form-group col-sm-4">
         <label class="control-label col-sm-5" >No Of Packs:</label>
         <div class="col-sm-7">
-            <input type="text" name="no_of_pak" id="no_pack" placeholder="e.g.:-50" class="form-control">
+            <input type="text" name="no_of_pak" id="no_pack" placeholder="e.g.:-50" class="form-control numonly">
         </div>
     </div>
     <div class="form-group col-sm-4">
@@ -119,13 +119,13 @@ include_once("head.php");
     <div class="form-group col-sm-4">
         <label class="control-label col-sm-5" >Pack Price:</label>
         <div class="col-sm-7">
-            <input type="text" name="pak_price" id="pk_price" class="form-control" placeholder="Rs.0.00">
+            <input type="text" name="pak_price" id="pk_price" class="form-control deconly" placeholder="Rs.0.00">
         </div>
     </div>
     <div class="form-group col-sm-4">
         <label class="control-label col-sm-5" >Selling Price of Unit:</label>
         <div class="col-sm-7">
-            <input type="text" name="sell_price" id="sl_price" class="form-control" placeholder="Rs.0.00"><br/>
+            <input type="text" name="sell_price" id="sl_price"  class="form-control deconly" placeholder="Rs.0.00"><br/>
         </div>
     </div>
     <div class="form-group col-sm-4">
@@ -133,8 +133,8 @@ include_once("head.php");
     </div>
     <table class="table table-responsive" border="2">
 
-        <tr><th>Drug Name</th><th>Pack Size</th><th>No of Packs</th><th>Batch No</th><th>Weight</th><th>Manufacture Date</th><th>Expire Date</th><th>Pack Price</th><th>Selling Price</th>
-            <th>Cost</th><th>Remove</th></tr>
+        <tr><th>Drug Name</th><th>Pack Size</th><th>No of Packs</th><th>Batch No</th><th>Weight</th><th>Manufacture Date</th>
+            <th>Expire Date</th><th>Pack Price</th><th>Selling Price</th><th>Cost</th><th>Remove</th></tr>
         <tbody id="tb1">
 
         </tbody>

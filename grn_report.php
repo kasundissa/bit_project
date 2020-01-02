@@ -1,4 +1,12 @@
 <?php
+session_start();
+if ($_SESSION["utype"]=="admin" or $_SESSION["utype"]=="manager"){
+
+}
+else
+{
+    header("location:page-login.php");
+}
 include_once("c_drugs.php");
 $d = new  drugs();
 $cat = $d->getall();
@@ -52,7 +60,7 @@ include_once("head.php");
         <?php
         if (isset($_POST["st_date"])) {
             foreach ($arr as $item) {
-                echo "<tr><td>" . $item->drug_name->drug_name . "</td><td>$item->pack_size</td><td>$item->no_of_packs</td><td>$item->batch_no</td><td>$item->weight</td><td>$item->manufacture_date</td><td>$item->expire_date</td><td>$item->unit_price</td><td>$item->selling_price</td><td>$item->cost</td></tr>";
+                echo "<tr><td>" . $item->drug_name->drug_name. "</td><td>$item->pack_size</td><td>$item->no_of_packs</td><td>$item->batch_no</td><td>$item->weight</td><td>$item->manufacture_date</td><td>$item->expire_date</td><td>$item->unit_price</td><td>$item->selling_price</td><td>$item->cost</td></tr>";
             }
         }
         ?>

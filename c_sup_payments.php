@@ -29,3 +29,4 @@ class sup_payments{
         return true;
     }
 }
+?>

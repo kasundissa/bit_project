@@ -6,8 +6,13 @@
  * Time: 5:09 PM
  */
 session_start();
-if(!isset($_SESSION["uid"]))
+if ($_SESSION["utype"]=="admin" or $_SESSION["utype"]=="cashier"){
+
+}
+else
+{
     header("location:page-login.php");
+}
 include_once("c_pos.php");
 if (isset($_POST["total_amount"]))
 {
@@ -16,7 +21,7 @@ if (isset($_POST["total_amount"]))
     $ps->tot_amount = $_POST["total_amount"];
     $ps->tot_discount = $_POST["total_discount"];
     $ps->sub_tot = $_POST["sub_total"];
-
+    $ps->net_tot = $_POST["net_total"];
 
     $ps->i_name=$_POST["in"];
     $ps->price=$_POST["prc"];
@@ -30,7 +35,7 @@ if (isset($_POST["total_amount"]))
 
 
        $xxx= $ps->register();
-
+        header("location:print_bill.php?sid=$xxx");
 }
 include_once("c_drugs.php");
 $dr= new drugs();

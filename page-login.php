@@ -17,7 +17,7 @@ if(isset($_POST["user_name"])) {
         $r='<div class="alert alert-danger fade in alert-dismissible show">
  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true" style="font-size:20px">×</span>
-  </button>    <strong>Error! </strong>User Name or Password is incorrect.
+  </button>    <strong>Error! </strong>Something is wrong.
 </div>';
     }
 }

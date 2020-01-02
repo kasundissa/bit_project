@@ -1,8 +1,12 @@
 <?php
 session_start();
-if(!isset($_SESSION["uid"]))
-    header("location:page-login.php");
+if ($_SESSION["utype"]=="admin" or $_SESSION["utype"]=="cashier"){
 
+}
+else
+{
+    header("location:page-login.php");
+}
     include_once("c_customer.php");
     $c=new  customer();
 

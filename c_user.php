@@ -10,6 +10,7 @@ class user{
 	public $usr_mobile;
 	public $usr_email;
 	public $basic_salary;
+    public $role;
 
 	private $db;
 	
@@ -19,8 +20,8 @@ class user{
 	}
 	function register()
     {
-		$sql="insert into user(usr_Name,usr_password,usr_NIC,date_of_birth,usr_address,usr_mobile,usr_email,basic_salary) 
-             values('$this->usr_Name',md5('$this->usr_password'),'$this->usr_NIC','$this->dob','$this->usr_address','$this->usr_mobile','$this->usr_email','$this->basic_salary')";
+		$sql="insert into user(usr_Name,usr_password,usr_NIC,date_of_birth,usr_address,usr_mobile,usr_email,role,basic_salary) 
+             values('$this->usr_Name',md5('$this->usr_password'),'$this->usr_NIC','$this->dob','$this->usr_address','$this->usr_mobile','$this->usr_email','$this->role','$this->basic_salary')";
 		
 		//echo $sql;
 		
@@ -31,7 +32,7 @@ class user{
 
     function update($id)
     {
-        $sql="update user set usr_Name='$this->usr_Name',usr_password=md5('$this->usr_password'),usr_NIC='$this->usr_NIC',date_of_birth='$this->dob',usr_address='$this->usr_address',usr_mobile='$this->usr_mobile',usr_email='$this->usr_email',basic_salary='$this->basic_salary'
+        $sql="update user set usr_Name='$this->usr_Name',usr_password=md5('$this->usr_password'),usr_NIC='$this->usr_NIC',date_of_birth='$this->dob',usr_address='$this->usr_address',usr_mobile='$this->usr_mobile',usr_email='$this->usr_email',role='$this->role',basic_salary='$this->basic_salary'
               where usr_ID=$id";
 
         //echo $sql;
@@ -96,6 +97,7 @@ class user{
         $u->usr_address = $row['usr_address'];
         $u->usr_mobile = $row['usr_mobile'];
         $u->usr_email = $row['usr_email'];
+        $u->role = $row['role'];
         $u->basic_salary = $row['basic_salary'];
 
         return $u;
@@ -110,6 +112,7 @@ class user{
             $row = $res->fetch_array();
             session_start();
             $_SESSION["uid"]=$row["usr_ID"];
+            $_SESSION["utype"]=$row["role"];
             return true;
 
         }
@@ -164,6 +167,7 @@ class user{
 			$u->usr_address=$row['usr_address'];
 			$u->usr_mobile=$row['usr_mobile'];
 			$u->usr_email=$row['usr_email'];
+            $u->role = $row['role'];
             $u->basic_salary = $row['basic_salary'];
 			$ar[]=$u;
 		}

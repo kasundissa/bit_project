@@ -1,4 +1,12 @@
 <?php
+session_start();
+if ($_SESSION["utype"]=="admin" or $_SESSION["utype"]=="cashier" or $_SESSION["utype"]=="storekeeper" or $_SESSION["utype"]=="manager"){
+
+}
+else
+{
+    header("location:page-login.php");
+}
 include_once("c_user.php");
 $r="";
 if (isset($_POST["email"])){

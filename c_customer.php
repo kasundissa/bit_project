@@ -29,6 +29,30 @@ class customer{
         $sql="insert into customer(cus_Name,cus_NIC,loyalty_card_no,date_of_birth,cus_address,cus_mobile,cus_email) 
         values('$this->cus_Name','$this->cus_NIC','$this->loyalty_no','$this->dob','$this->cus_address','$this->cus_mobile','$this->cus_email')";
         $this->db->query($sql);
+
+        include_once("mail/src/PHPMailer.php");
+        include_once("mail/src/SMTP.php");
+
+        $mail = new PHPMailer(); // create a new object
+        $mail->IsSMTP(); // enable SMTP
+        $mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
+        $mail->SMTPAuth = true; // authentication enabled
+        $mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for Gmail
+        $mail->Host = "smtp.gmail.com";
+        $mail->Port = 465; // or 587
+        $mail->IsHTML(true);
+        $mail->Username = "kasun.disanayake@gmail.com";
+        $mail->Password = "kasundisa";
+        $mail->SetFrom("kasun.disanayake@gmail.com");
+        $mail->Subject = "Welcome to Sun City Pharmacy & Grocery";
+        $mail->Body = "your Loyalty card no is ".$this->loyalty_no;
+        $mail->AddAddress("$this->cus_email");
+
+        if(!$mail->Send()) {
+            echo "Mailer Error: " . $mail->ErrorInfo;
+        } else {
+            echo "Message has been sent";
+        }
         return true;
     }
     function update($id)

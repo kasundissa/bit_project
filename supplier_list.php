@@ -6,8 +6,13 @@
  * Time: 2:56 PM
  */
 session_start();
-if(!isset($_SESSION["uid"]))
+if ($_SESSION["utype"]=="admin" or $_SESSION["utype"]=="manager"){
+
+}
+else
+{
     header("location:page-login.php");
+}
 include_once ("c_supplier.php");
 $s=new supplier();
 

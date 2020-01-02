@@ -6,9 +6,13 @@
  * Time: 2:10 PM
  */
 session_start();
-if(!isset($_SESSION["uid"]))
-    header("location:page-login.php");
+if ($_SESSION["utype"]=="admin"){
 
+}
+else
+{
+    header("location:page-login.php");
+}
 include_once("c_grocery_items.php");
 $g=new  grocery_items();
 

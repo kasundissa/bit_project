@@ -6,8 +6,13 @@
  * Time: 11:41 AM
  */
 session_start();
-if(!isset($_SESSION["uid"]))
+if ($_SESSION["utype"]=="admin" or $_SESSION["utype"]=="storekeeper"){
+
+}
+else
+{
     header("location:page-login.php");
+}
 include_once("c_supplier.php");
 $p = new supplier();
 $cat=$p->getall();

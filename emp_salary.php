@@ -6,13 +6,19 @@
  * Time: 11:55 AM
  */
 session_start();
-if(!isset($_SESSION["uid"]))
+if ($_SESSION["utype"]=="admin" or $_SESSION["utype"]=="manager"){
+
+}
+else
+{
     header("location:page-login.php");
+}
 include_once("c_emp_salary.php");
 if (isset($_POST["ot"]))
 {
     $e = new emp_salary();
 
+    $e->year = $_POST["year"];
     $e->month = $_POST["category"];
     $e->OT = $_POST["ot"];
     $e->bonus = $_POST["bonus"];
@@ -34,8 +40,14 @@ include_once("head.php");
 <h3>Employee's Salary</h3><br/>
 <form method="post" class="form-horizontal" action="emp_salary.php">
     <div class="form-group">
-        <label class="control-label col-sm-4" >Month:</label>
+        <label class="control-label col-sm-2">Year:</label>
         <div class="col-sm-4">
+            <input type="text" name="year" class="form-control"  placeholder="e.g.:-2020" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-4" >Month:</label>
+        <div class="col-sm-2">
             <select name="category" class="form-control">
                 <option value="january">January</option>
                 <option value="february">February</option>

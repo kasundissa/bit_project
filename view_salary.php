@@ -7,7 +7,7 @@
  */
 include_once("c_emp_salary.php");
 $s = new emp_salary();
-$e = $s->getbyid($_POST['uid'],$_POST['category']);
+$e = $s->getbyid($_POST['uid'],$_POST['category'],$_POST['year']);
 
 include_once("c_user.php");
 $k = new user();

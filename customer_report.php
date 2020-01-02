@@ -1,7 +1,13 @@
 <?php
 session_start();
-if(!isset($_SESSION["uid"]))
+
+if ($_SESSION["utype"]=="admin" or $_SESSION["utype"]=="cashier" or $_SESSION["utype"]=="manager"){
+
+}
+else
+{
     header("location:page-login.php");
+}
 
     include_once("c_customer.php");
     $c=new  customer();
@@ -36,7 +42,6 @@ if(!isset($_SESSION["uid"]))
         jQuery('#tbl').DataTable( {
 
             dom: 'Bfrtip',
-            title:'GRN report',
             buttons: [
                 'copyHtml5',
                 'excelHtml5',

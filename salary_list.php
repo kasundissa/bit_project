@@ -5,6 +5,14 @@
  * Date: 26-Sep-19
  * Time: 11:17 AM
  */
+session_start();
+if ($_SESSION["utype"]=="admin" or $_SESSION["utype"]=="cashier" or $_SESSION["utype"]=="storekeeper" or $_SESSION["utype"]=="manager"){
+
+}
+else
+{
+    header("location:page-login.php");
+}
 include_once("head.php");
 ?>
 <!DOCTYPE html>
@@ -18,6 +26,12 @@ include_once("head.php");
         <label class="control-label col-sm-6">Employee ID:</label>
         <div class="col-sm-6">
             <input type="text" name="uid" class="form-control numonly">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-6">Year:</label>
+        <div class="col-sm-6">
+            <input type="text" name="year" class="form-control numonly">
         </div>
     </div>
     <div class="form-group">

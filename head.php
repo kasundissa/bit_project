@@ -39,7 +39,7 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fa fa-bars"></i>
             </button>
-            <a class="navbar-brand" href="./"><img src="images/logo.png" alt="Logo"></a>
+           <a class="navbar-brand" href="./"><!--<img src="images/logo.png" alt="Logo">-->Sun City <br/>Pharmacy & <br/>Grocery</a>
             <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>
         </div>
 
@@ -96,13 +96,6 @@
                     </ul>
                 </li>
                 <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Offers</a>
-                    <ul class="sub-menu children dropdown-menu">
-                        <li><i class="fa fa-table"></i><a href="add_offers.php">Add Offers</a></li>
-                        <li><i class="fa fa-table"></i><a href="offers_list.php">View Offers</a></li>
-                    </ul>
-                </li>
-                <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>GRN</a>
                     <ul class="sub-menu children dropdown-menu">
                         <li><i class="fa fa-table"></i><a href="grn.php">Add GRN</a></li>
@@ -130,6 +123,7 @@
                         <li><i class="menu-icon fa fa-th"></i><a href="sales_report.php">Sales</a></li>
                         <li><i class="menu-icon fa fa-th"></i><a href="grn_report.php">GRN</a></li>
                         <li><i class="menu-icon fa fa-th"></i><a href="customer_report.php">Customer Details Reports</a></li>
+                        <li><i class="menu-icon fa fa-th"></i><a href="stock_report.php">Stock</a></li>
                     </ul>
                 </li>
 

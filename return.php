@@ -7,8 +7,13 @@
  */
 
 session_start();
-if(!isset($_SESSION["uid"]))
+if ($_SESSION["utype"]=="admin" or $_SESSION["utype"]=="cashier"){
+
+}
+else
+{
     header("location:page-login.php");
+}
 $k=array();
 
 if(isset($_POST["bill_no"])){
@@ -20,14 +25,14 @@ include_once("c_pos.php");
 
 include_once("c_items_return.php");
 
-    if (isset($_POST["i_name"])) {
+    if (isset($_POST["sp_id"])) {
 
         $r = new items_return();
 
 
         $r->pos_id = $_POST["bl_no"];
 
-        $r->it_name = $_POST["i_name"];
+        $r->it_name = $_POST["sp_id"];
         $r->price = $_POST["price"];
         $r->qty = $_POST["qty"];
         $r->amount = $_POST["amount"];
@@ -76,7 +81,7 @@ include_once("head.php");
                 $cb="disabled";
                 else
                     $cb="";
-                echo "<tr><td><input type='hidden' value='$item->sold_product_id' name='sp_id[]'><input type='text' value='".$item->i_name->drug_name."' name='i_name[]'></td><td><input type='text' value='$item->price' name='price[]'></td><td><input type='text' value='$item->qty' name='qty[]'></td><td><input type='text' class='abox' value='$item->amt' id='amt' name='amount[]'></td><td><input type='text' value='$item->discount' id='diss' name='discount[]'></td><td><input name='chk[$item->sold_product_id]' type='checkbox' class='cbox' $cb></td></tr>";
+                echo "<tr><td><input type='hidden' value='$item->sold_product_id' name='sp_id[]'><input type='text' value='".$item->i_name->drug_name."'></td><td><input type='text' value='$item->price' name='price[]'></td><td><input type='text' value='$item->qty' name='qty[]'></td><td><input type='text' class='abox' value='$item->amt' id='amt' name='amount[]'></td><td><input type='text' value='$item->discount' id='diss' name='discount[]'></td><td><input name='chk[$item->sold_product_id]' type='checkbox' class='cbox' $cb></td></tr>";
 
             }
             ?>
@@ -99,7 +104,7 @@ include_once("head.php");
     <div class="form-group col-sm-6">
         <input type="submit" class="btn" value="Complete Return">
     </div>
-    <input type="text" id="cid" name="cid">
+    <input type="hidden" id="cid" name="cid">
 </form>
 </body>
 <?php

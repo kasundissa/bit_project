@@ -1,7 +1,12 @@
 <?php
 session_start();
-if(!isset($_SESSION["uid"]))
-    header("location:page-login.php"); //if user not logged in redirect to the login page
+if ($_SESSION["utype"]=="admin" or $_SESSION["utype"]=="cashier"){
+
+}
+else
+{
+    header("location:page-login.php");
+}
 include_once ("c_customer.php"); //import the customer class file
 
 if (isset($_POST["cname"]))

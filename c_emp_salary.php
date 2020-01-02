@@ -12,6 +12,7 @@ class emp_salary{
     public $bonus;
     public $deduction;
     public $usr_ID;
+    public $year;
     public $month;
     public $epf;
     public $etf;
@@ -40,25 +41,26 @@ class emp_salary{
             $etf = $b_sal * 0.02;
             $tot_sal = $b_sal - $epf - $etf + $this->OT[$c] + $this->bonus[$c] - $this->deduction[$c];
 
-            $sql = "insert into salary_details(month,OT,bonus,deduction,usr_ID,epf,etf,tot_salary)
-               values('" . $this->month . "','" . $this->OT[$c] . "','" . $this->bonus[$c] . "','" . $this->deduction[$c] . "','" . $this->usr_ID[$c] . "','" . $epf . "','" . $etf . "','" . $tot_sal . "') ";
+            $sql = "insert into salary_details(`year`,`month`,OT,bonus,deduction,usr_ID,epf,etf,tot_salary)
+               values('" . $this->year . "','" . $this->month . "','" . $this->OT[$c] . "','" . $this->bonus[$c] . "','" . $this->deduction[$c] . "','" . $this->usr_ID[$c] . "','" . $epf . "','" . $etf . "','" . $tot_sal . "') ";
             $this->db->query($sql);
             $c++;
             //echo $sql;
         }
         return true;
     }
-    function getbyid($id,$month)
+    function getbyid($id,$month,$year)
     {
-        $sql = "select * from salary_details join `user` on salary_details.usr_ID=`user`.usr_ID where `user`.usr_ID=$id AND salary_details.month='$month'";
+        $sql = "select * from salary_details join `user` on salary_details.usr_ID=`user`.usr_ID where `user`.usr_ID=$id AND salary_details.month='$month' AND salary_details.year='$year'";
         $res = $this->db->query($sql);
         //echo $sql;
         $row = $res->fetch_array();
         $e = new emp_salary();
-        $e->name = $row['usr_Name'];
-        $e->address = $row['usr_address'];
-        $e->phone = $row['usr_mobile'];
-        $e->basic_sal = $row['basic_salary'];
+        //$e->name = $row['usr_Name'];
+       // $e->address = $row['usr_address'];
+        //$e->phone = $row['usr_mobile'];
+        //$e->basic_sal = $row['basic_salary'];
+        $e->year = $row['year'];
         $e->month = $row['month'];
         $e->OT = $row['OT'];
         $e->bonus = $row['bonus'];
@@ -77,6 +79,7 @@ class emp_salary{
         $ar=array();
         while($row=$res->fetch_array()){
             $e=new emp_salary();
+            $e->year = $row['year'];
             $e->month = $row['month'];
             $e->OT = $row['OT'];
             $e->bonus = $row['bonus'];

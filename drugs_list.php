@@ -1,7 +1,12 @@
 <?php
 session_start();
-if(!isset($_SESSION["uid"]))
+if ($_SESSION["utype"]=="admin"){
+
+}
+else
+{
     header("location:page-login.php");
+}
 
     include_once("c_drugs.php");
     $d=new drugs();

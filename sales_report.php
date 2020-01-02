@@ -1,4 +1,12 @@
 <?php
+session_start();
+if ($_SESSION["utype"]=="admin" or $_SESSION["utype"]=="manager"){
+
+}
+else
+{
+    header("location:page-login.php");
+}
 include_once("c_drugs.php");
 $d = new  drugs();
 $cat = $d->getall();
@@ -37,7 +45,7 @@ include_once("head.php");
             <select name="category" class="form-control">
                 <?php
                 foreach ($cat as $item){
-                    echo "<option value='$item->drug_name'>$item->drug_name</option>";
+                    echo "<option value='$item->drug_id'>$item->drug_name</option>";
 
                 }
                 ?>
@@ -55,7 +63,7 @@ include_once("head.php");
         <?php
         if (isset($_POST["st_date"])) {
             foreach ($arr as $item) {
-                echo "<tr><td>$item->i_name</td><td>$item->price</td><td>$item->qty</td><td>$item->amt</td><td>$item->discount</td></tr>";
+                echo "<tr><td>".$item->i_name->drug_name."</td><td>$item->price</td><td>$item->qty</td><td>$item->amt</td><td>$item->discount</td></tr>";
             }
         }
         ?>

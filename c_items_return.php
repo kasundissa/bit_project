@@ -30,7 +30,7 @@ class items_return
        $sql="insert into items_return(pos_id)  values('$this->pos_id')";
        $this->db->query($sql);
        $rid=$this->db->insert_id;
-       // echo $sql;
+        echo $sql;
        $c=0;
        foreach ($this->it_name as $item) {
            $x=$_POST["sp_id"][$c];
@@ -38,8 +38,14 @@ class items_return
                $sql = "insert into returned_items(it_name,price,quantity,amount,return_id) 
                        values('" . $this->it_name[$c] . "','" . $this->price[$c] . "','" . $this->qty[$c] . "','" . $this->amount[$c] . "','" . $rid . "')";
                $this->db->query($sql);
+               echo $sql;
+
+               $sql3 = "insert into stock(ref_type,ref_no,item_id,st_in,st_out)
+              values ('Return','".$rid."','".$this->it_name[$c]."','".$this->qty[$c]."','0')";
+               $this->db->query($sql3);
+               echo $sql3;
                $c++;
-                // echo $sql;
+
            }
        }
        if (isset($_POST["cid"])){

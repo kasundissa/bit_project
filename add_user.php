@@ -1,20 +1,29 @@
 <?php
 session_start();
-if(!isset($_SESSION["uid"]))
+
+if ($_SESSION["utype"]=="admin"){
+
+}
+else
+{
     header("location:page-login.php");
+}
+
 include_once("c_user.php");
 
 
-if(isset($_POST["uname"])){
+if(isset($_POST["uaddress"])){
     $u2=new user();
 
     $u2->usr_Name = $_POST["uname"];
-	$u2->usr_password = $_POST["upassword"];
+    if(isset($_POST["upassword"]))
+	    $u2->usr_password = $_POST["upassword"];
 	$u2->usr_NIC = $_POST["unic"];
 	$u2->dob = $_POST["dob"];
 	$u2->usr_address = $_POST["uaddress"];
 	$u2->usr_mobile = $_POST["umobile"];
 	$u2->usr_email = $_POST["uemail"];
+	$u2->role = $_POST['category'];
     $u2->basic_salary = $_POST["b_salary"];
 
 	if(isset($_POST["uid"])){
@@ -99,6 +108,17 @@ include_once("head.php");
             <label class="control-label col-sm-2" >Basic Salary:</label>
             <div class="col-sm-10">
                 <input type="text" name="b_salary" class="form-control" pattern="[0-9]{*}" placeholder="e.g.:-10000" value="<?=$u->basic_salary?>" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">Role:</label>
+            <div class="col-sm-10">
+                <select name="category" class="form-control"><!-- to create a dropdown menu -->
+                   <option value='admin'>Admin</option>
+                    <option value='cashier'>Cashier</option>
+                    <option value='storekeeper'>Store Keeper</option>
+                    <option value='manager'>Manager</option>
+                </select>
             </div>
         </div>
 		<input type="submit" class="btn">

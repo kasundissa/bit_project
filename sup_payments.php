@@ -1,7 +1,12 @@
 <?php
 session_start();
-if (!isset($_SESSION["uid"]))
+if ($_SESSION["utype"]=="admin" or $_SESSION["utype"]=="manager"){
+
+}
+else
+{
     header("location:page-login.php");
+}
 include_once("c_supplier.php");
 $sup = new supplier();
 $comp = $sup->getall();

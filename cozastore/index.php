@@ -87,7 +87,7 @@ $i = $g->getall();
 							<li class="active-menu">
 								<a href="index.html">Home</a>
 								<ul class="sub-menu">
-									<li><a href="index.html">Homepage 1</a></li>
+									<li><a href="index.php">Homepage 1</a></li>
 									<li><a href="home-02.html">Homepage 2</a></li>
 									<li><a href="home-03.html">Homepage 3</a></li>
 								</ul>
@@ -196,9 +196,9 @@ $i = $g->getall();
 
 			<ul class="main-menu-m">
 				<li>
-					<a href="index.html">Home</a>
+					<a href="index.php">Home</a>
 					<ul class="sub-menu-m">
-						<li><a href="index.html">Homepage 1</a></li>
+						<li><a href="index.php">Homepage 1</a></li>
 						<li><a href="home-02.html">Homepage 2</a></li>
 						<li><a href="home-03.html">Homepage 3</a></li>
 					</ul>
@@ -758,7 +758,7 @@ $i = $g->getall();
 						<div class='block2-pic hov-img0'>
 							<img src='../pimg/$item->it_id.jpg' alt='MG-PRODUCT'>
 
-							<a href='#' class='block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1'>
+							<a href='#' class='block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1$item->it_id'>
 								Quick View
 							</a>
 						</div>
@@ -949,52 +949,29 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	</div>
 
 	<!-- Modal1 -->
-	<div class="wrap-modal1 js-modal1 p-t-60 p-b-20">
-		<div class="overlay-modal1 js-hide-modal1"></div>
+<?php
+foreach($i as $item){
+    ?>
+	<div class='wrap-modal1 js-modal1<?php echo $item->it_id;?> p-t-60 p-b-20'>
+		<div class='overlay-modal1 js-hide-modal1<?=$item->it_id?>'></div>
 
-		<div class="container">
-			<div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
-				<button class="how-pos3 hov3 trans-04 js-hide-modal1">
-					<img src="images/icons/icon-close.png" alt="CLOSE">
+		<div class='container'>
+			<div class='bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent'>
+				<button class='how-pos3 hov3 trans-04 js-hide-modal1<?=$item->it_id?>'>
+					<img src='images/icons/icon-close.png' alt='CLOSE'>
 				</button>
 
-				<div class="row">
-					<div class="col-md-6 col-lg-7 p-b-30">
-						<div class="p-l-25 p-r-30 p-lr-0-lg">
-							<div class="wrap-slick3 flex-sb flex-w">
-								<div class="wrap-slick3-dots"></div>
-								<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
+				<div class='row'>
+					<div class='col-md-6 col-lg-7 p-b-30'>
+						<div class='p-l-25 p-r-30 p-lr-0-lg'>
+							<div class='wrap-slick3 flex-sb flex-w'>
 
-								<div class="slick3 gallery-lb">
-									<div class="item-slick3" data-thumb="images/product-detail-01.jpg">
-										<div class="wrap-pic-w pos-relative">
-											<img src="images/product-detail-01.jpg" alt="IMG-PRODUCT">
 
-											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-01.jpg">
-												<i class="fa fa-expand"></i>
-											</a>
-										</div>
-									</div>
+								<div class='slick3 gallery-lb'>
 
-									<div class="item-slick3" data-thumb="images/product-detail-02.jpg">
-										<div class="wrap-pic-w pos-relative">
-											<img src="images/product-detail-02.jpg" alt="IMG-PRODUCT">
+											<img src='../pimg/<?php echo $item->it_id;?>.jpg' alt='IMG-PRODUCT'>
 
-											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-02.jpg">
-												<i class="fa fa-expand"></i>
-											</a>
-										</div>
-									</div>
 
-									<div class="item-slick3" data-thumb="images/product-detail-03.jpg">
-										<div class="wrap-pic-w pos-relative">
-											<img src="images/product-detail-03.jpg" alt="IMG-PRODUCT">
-
-											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-03.jpg">
-												<i class="fa fa-expand"></i>
-											</a>
-										</div>
-									</div>
 								</div>
 							</div>
 						</div>
@@ -1003,57 +980,31 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 					<div class="col-md-6 col-lg-5 p-b-30">
 						<div class="p-r-50 p-t-5 p-lr-0-lg">
 							<h4 class="mtext-105 cl2 js-name-detail p-b-14">
-								Lightweight Jacket
+                              <?php echo $item->it_name; ?>
 							</h4>
 
 							<span class="mtext-106 cl2">
-								$58.79
+								 Rs.<?php echo $item->price;?>/=
 							</span>
 
 							<p class="stext-102 cl3 p-t-23">
-								Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus ligula. Mauris consequat ornare feugiat.
+                                <?php echo $item->description;?>
+								<!--Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus ligula. Mauris consequat ornare feugiat.-->
 							</p>
 							
 							<!--  -->
+                            <form method="post" action="thankyou.php">
+                                <input type="hidden" name="it_id" value="<?php echo $item->it_id;?>">
+                                <br/>
+                                <h6><b>Customer Details</b></h6>
+                                <br/>
+                                <label>Customer Name</label>
+                                <input type="text" class="mtext-104 cl3 txt-center num-product" name="cname" required>
+                                <label>Customer Address</label>
+                                <input type="text" class="mtext-104 cl3 txt-center num-product" name="caddress" required>
+                                <label>Customer Phone No</label>
+                                <input type="text" class="mtext-104 cl3 txt-center num-product" name="cmobile" required>
 							<div class="p-t-33">
-								<div class="flex-w flex-r-m p-b-10">
-									<div class="size-203 flex-c-m respon6">
-										Size
-									</div>
-
-									<div class="size-204 respon6-next">
-										<div class="rs1-select2 bor8 bg0">
-											<select class="js-select2" name="time">
-												<option>Choose an option</option>
-												<option>Size S</option>
-												<option>Size M</option>
-												<option>Size L</option>
-												<option>Size XL</option>
-											</select>
-											<div class="dropDownSelect2"></div>
-										</div>
-									</div>
-								</div>
-
-								<div class="flex-w flex-r-m p-b-10">
-									<div class="size-203 flex-c-m respon6">
-										Color
-									</div>
-
-									<div class="size-204 respon6-next">
-										<div class="rs1-select2 bor8 bg0">
-											<select class="js-select2" name="time">
-												<option>Choose an option</option>
-												<option>Red</option>
-												<option>Blue</option>
-												<option>White</option>
-												<option>Grey</option>
-											</select>
-											<div class="dropDownSelect2"></div>
-										</div>
-									</div>
-								</div>
-
 								<div class="flex-w flex-r-m p-b-10">
 									<div class="size-204 flex-w flex-m respon6-next">
 										<div class="wrap-num-product flex-w m-r-20 m-tb-10">
@@ -1068,13 +1019,13 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 											</div>
 										</div>
 
-										<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+										<button type="submit" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
 											Add to cart
 										</button>
 									</div>
 								</div>	
 							</div>
-
+                            </form>
 							<!--  -->
 							<div class="flex-w flex-m p-l-100 p-t-40 respon7">
 								<div class="flex-m bor9 p-r-10 m-r-11">
@@ -1101,7 +1052,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			</div>
 		</div>
 	</div>
-
+  <?php  }?>
 <!--===============================================================================================-->	
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
@@ -1200,7 +1151,27 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 				ps.update();
 			})
 		});
-	</script>
+
+
+        <?php
+        foreach($i as $item){
+        ?>
+
+        /*==================================================================
+        [ Show modal1 ]*/
+        $('.js-show-modal1<?=$item->it_id?>').on('click',function(e){
+            e.preventDefault();
+            $('.js-modal1<?=$item->it_id?>').addClass('show-modal1');
+        });
+
+        $('.js-hide-modal1<?=$item->it_id?>').on('click',function(){
+            $('.js-modal1<?=$item->it_id?>').removeClass('show-modal1');
+        });
+<?php } ?>
+
+
+
+    </script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
 

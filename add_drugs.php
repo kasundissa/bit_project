@@ -1,7 +1,12 @@
 <?php
 session_start();
-if(!isset($_SESSION["uid"]))//if user didn't log in system will redirect to login page
+if ($_SESSION["utype"]=="admin"){
+
+}
+else
+{
     header("location:page-login.php");
+}
 include_once("c_drugs.php");//to include the drugs class
 if (isset($_POST["dname"]))
 {

@@ -16,6 +16,7 @@ if (isset($_POST["amt"]))
     $sp = new sup_payments();
 
     $sp->sup_id = $_POST["category"];
+    $sp->ref_no = $_POST["ref_no"];
     $sp->amount = $_POST["amt"];
     $sp->p_method = $_POST["category1"];
     $sp->cheque_no = $_POST["chq_no"];
@@ -32,6 +33,7 @@ include_once("head.php");
     <meta charset="UTF-8">
 </head>
 <body>
+<h1>Supplier Payments</h1>
 <form method="post" action="sup_payments.php" class="form-horizontal">
     <div class="form-group">
         <label class="control-label col-sm-2">Company Name:</label>
@@ -45,6 +47,12 @@ include_once("head.php");
                 ?>
 
             </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2">Reference No:</label>
+        <div class="col-sm-10">
+            <input type="text" name="ref_no"  class="form-control numonly"  placeholder="Enter Reference No" required>
         </div>
     </div>
     <div class="form-group">

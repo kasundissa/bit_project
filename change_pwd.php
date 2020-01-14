@@ -10,7 +10,7 @@ else
 include_once("c_user.php");
 $r="";
 if (isset($_POST["email"])){
-    if ($_POST["new_pwd"]==$_POST["con_pwd"]){
+    if ($_POST["new_pwd"]==$_POST["con_pwd"]){ //check the equality new password and confirm password
         $u = new user();
         $k = $u->change_pwd($_POST["email"],$_POST["old_pwd"],$_POST["new_pwd"],$_POST["con_pwd"]);
     }
@@ -22,7 +22,7 @@ if (isset($_POST["email"])){
  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true" style="font-size:20px">×</span>
   </button>    <strong>Error!</strong> Something is going wrong.
-</div>';
+</div>'; //to display error message on the screen
 }
 include_once("head.php");
 ?>

@@ -46,7 +46,7 @@
         <div id="main-menu" class="main-menu collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="index.html"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                    <a href="welcome.php"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                 </li>
 
 
@@ -71,6 +71,7 @@
                     <ul class="sub-menu children dropdown-menu">
                         <li><i class="fa fa-puzzle-piece"></i><a href="add_supplier.php">add supplier</a></li>
                         <li><i class="fa fa-id-badge"></i><a href="supplier_list.php">view suppliers</a></li>
+                        <li><i class="menu-icon fa fa-th"></i><a href="sup_payments.php">Payments</a></li>
                     </ul>
                 </li>
 
@@ -112,9 +113,9 @@
                 <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Items</a>
                     <ul class="sub-menu children dropdown-menu">
-                        <li><i class="menu-icon fa fa-th"></i><a href="pos.php">POS</a></li>
+                        <li><i class="menu-icon fa fa-th"></i><a href="pos.php">Sell</a></li>
                         <li><i class="menu-icon fa fa-th"></i><a href="return.php">Return</a></li>
-                        <li><i class="menu-icon fa fa-th"></i><a href="sup_payments.php">Payments</a></li>
+
                     </ul>
                 </li>
                 <li class="menu-item-has-children dropdown">
@@ -124,6 +125,11 @@
                         <li><i class="menu-icon fa fa-th"></i><a href="grn_report.php">GRN</a></li>
                         <li><i class="menu-icon fa fa-th"></i><a href="customer_report.php">Customer Details Reports</a></li>
                         <li><i class="menu-icon fa fa-th"></i><a href="stock_report.php">Stock</a></li>
+                        <li><i class="menu-icon fa fa-th"></i><a href="stock_over_report.php">Stocks Going Over</a></li>
+                        <li><i class="menu-icon fa fa-th"></i><a href="available_users.php">Available Users</a></li>
+                        <li><i class="menu-icon fa fa-th"></i><a href="sales_report%20_all_items.php">Sales For all items</a></li>
+                        <li><i class="menu-icon fa fa-th"></i><a href="view_sup_payments.php">Supplier Payments</a></li>
+                        <li><i class="menu-icon fa fa-th"></i><a href="daily_demand.php">Daily Demand</a></li>
                     </ul>
                 </li>
 
@@ -219,7 +225,7 @@
                             </a>
                         </div>
                     </div>
-              &nbsp;    &nbsp;  &nbsp;  &nbsp;  &nbsp;      <span id="dt"></span> &nbsp; &nbsp;&nbsp;&nbsp; Kasun
+              &nbsp;    &nbsp;  &nbsp;  &nbsp;  &nbsp;      <span id="dt"></span> <!--&nbsp; &nbsp;&nbsp;&nbsp; Kasun-->
 
                 </div>
             </div>
@@ -266,12 +272,12 @@
 
     </header><!-- /header -->
     <!-- Header-->
-
+<!--
     <div class="breadcrumbs">
         <div class="col-sm-4">
             <div class="page-header float-left">
                 <div class="page-title">
-                    <h1>Dashboard</h1>
+                   <h1>Dashboard</h1>
                 </div>
             </div>
         </div>
@@ -287,7 +293,7 @@
             </div>
         </div>
     </div>
-
+-->
     <div class="content mt-3">
         <div class="animated fadeIn">
 

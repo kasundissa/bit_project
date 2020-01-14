@@ -19,6 +19,7 @@ if (isset($_POST["dname"]))
     $d2->manufacturer_name = $_POST["manu_name"];
     $d2->marketer_name = $_POST["marktr_name"];
     $d2->description = $_POST["description"];
+    $d2->minimum_qty = $_POST["min_qty"];
     $d2->cat_id =$_POST["category"];
 
     if(isset($_POST["uid"])){
@@ -101,6 +102,12 @@ include_once("head.php");
         <label class="control-label col-sm-2">Description:</label>
         <div class="col-sm-10">
             <input type="text" name="description" class="form-control"  placeholder="Enter Description" value="<?=$d->description?>">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2">Minimum Quantity:</label>
+        <div class="col-sm-10">
+            <input type="text" name="min_qty" class="form-control"  placeholder="500" value="<?=$d->minimum_qty?>">
         </div>
     </div>
     <input type="submit" class="btn">   <!--submit button to submit the form-->

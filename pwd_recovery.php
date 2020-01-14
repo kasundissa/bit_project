@@ -1,7 +1,7 @@
 <?php
 include_once("c_user.php");
 
-    if (isset($_POST['email'])) {
+    if (isset($_POST['email'])) { //to reset the password
         if ($_POST['n_pwd']== $_POST['con_pwd']) {
         $u = new user();
         $n = $u->reset_pwd($_POST['email'], $_POST['pin'], $_POST['n_pwd'], $_POST['con_pwd']);

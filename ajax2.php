@@ -6,9 +6,9 @@
  * Time: 4:52 PM
  */
 if (isset($_GET["PS"])) {
-    include("c_customer.php");
-    $p = new customer();
-    $pt = $p->getpoints($_GET["PS"]);
-    echo $pt;
+include("c_customer.php");
+$p = new customer();
+$pt = $p->getpoints($_GET["PS"]);
+echo number_format((float)$pt,2,".","");
 }
 ?>

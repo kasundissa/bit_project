@@ -8,16 +8,16 @@ $r="";
 $u = new user();
 
 if(isset($_POST["user_name"])) {
-    $rep = $u->login($_POST["user_name"], $_POST["user_password"]);
+    $rep = $u->login($_POST["user_name"], $_POST["user_password"]); //to check user name and password is correct or not
 
     if($rep == true)
         header("location:welcome.php");
     else
-    {
+    { //if the user name or the password is wrong display an error message
         $r='<div class="alert alert-danger fade in alert-dismissible show">
  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true" style="font-size:20px">×</span>
-  </button>    <strong>Error! </strong>Something is wrong.
+  </button>    <strong>User Name or Password is Wrong !</strong>
 </div>';
     }
 }
@@ -65,7 +65,7 @@ echo $r;
         <div class="container">
             <div class="login-content">
                 <div class="login-logo">
-                    <a href="index.html">
+                    <a href="welcome.php">
                         <img class="align-content" src="images/logo.png" alt="">
                     </a>
                 </div>

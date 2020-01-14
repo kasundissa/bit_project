@@ -14,11 +14,11 @@ class user{
 
 	private $db;
 	
-	function __construct()
+	function __construct() //automatically call this function when you create an object from a class
     {
 		$this->db=new mysqli(server,username,password,dbname);
 	}
-	function register()
+	function register() //register user information in a database
     {
 		$sql="insert into user(usr_Name,usr_password,usr_NIC,date_of_birth,usr_address,usr_mobile,usr_email,role,basic_salary) 
              values('$this->usr_Name',md5('$this->usr_password'),'$this->usr_NIC','$this->dob','$this->usr_address','$this->usr_mobile','$this->usr_email','$this->role','$this->basic_salary')";
@@ -30,7 +30,7 @@ class user{
 	}
 
 
-    function update($id)
+    function update($id) //to update the user details in a database
     {
         $sql="update user set usr_Name='$this->usr_Name',usr_password=md5('$this->usr_password'),usr_NIC='$this->usr_NIC',date_of_birth='$this->dob',usr_address='$this->usr_address',usr_mobile='$this->usr_mobile',usr_email='$this->usr_email',role='$this->role',basic_salary='$this->basic_salary'
               where usr_ID=$id";
@@ -42,7 +42,7 @@ class user{
     }
 
 
-	function remove($uid)
+	function remove($uid) //to remove a user detail in a database
     {
 		$sql="update user set usr_status='del' where usr_ID=$uid";
 		
@@ -51,7 +51,7 @@ class user{
 		$this->db->query($sql);
 		return true;
 	}
-	function reset_pwd($email,$pin_code,$new_pwd,$con_pwd)
+	function reset_pwd($email,$pin_code,$new_pwd,$con_pwd) //to reset the user password
     {
 		$sql = "select * from user where usr_email='$email' and random_no='$pin_code'";
         $res = $this->db->query($sql);
@@ -65,7 +65,7 @@ class user{
         else
             return false;
 	}
-	function change_pwd($email,$old_password,$new_password,$confirm_password)
+	function change_pwd($email,$old_password,$new_password,$confirm_password) //to change user password
     {
         $sql = "select * from user where usr_email='$email' and usr_password=md5('$old_password')";
         //echo $sql;
@@ -79,7 +79,7 @@ class user{
         else
             return false;
     }
-	function getbyid($id)
+	function getbyid($id) //get a user information by id
     {
         $sql = "select * from user where usr_status='act' and usr_ID=$id";
         $res = $this->db->query($sql);
@@ -103,7 +103,7 @@ class user{
         return $u;
     }
 
-    function login($un,$pw)
+    function login($un,$pw) //check user name and password to login the system
     {
         $sql = "select * from user where usr_Name='$un' and usr_password=md5('$pw')";
         $res = $this->db->query($sql);
@@ -120,7 +120,7 @@ class user{
             return false;
 
     }
-    function password_recovery($eml)
+    function password_recovery($eml) //to send an password recovery email
     {
         $r=rand(1000000,9999999);
         $sql="update user set random_no=$r where usr_email='$eml'";
@@ -152,7 +152,7 @@ class user{
         return true;
     }
 
-	function getall()
+	function getall() // get all the information of users
     {
 		$sql="select * from user where usr_status='act'";
 		$res = $this->db->query($sql);

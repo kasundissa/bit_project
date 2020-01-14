@@ -13,7 +13,7 @@ class pos{
   public $tot_discount;
   public $sub_tot;
   public $net_tot;
-  public $datetime;
+
 
   public $sold_product_id;
   public $i_name;
@@ -26,16 +26,24 @@ class pos{
     public $points;
     public $cus_id;
 
+    public $datetime;
+    public $today_tot_amt;
+    public $total_used_pts;
+    public $used_points;
+    public $today_items_name;
+    public $today_items_qty;
+    public $today_returned_amount;
+
   private $db;
 
 
-    function __construct()
+    function __construct()  //automatically call this function when you create an object from a class
     {
         $this->db=new mysqli(server,username,password,dbname);
     }
 
 
-    function getbyid($id)
+    function getbyid($id) //to get sold items details by id
     {
         $sql = "select * from pos,sold_product where pos.pos_id=sold_product.pos_id and pos.pos_id=$id";
         $res = $this->db->query($sql);
@@ -55,14 +63,14 @@ class pos{
 
         return $ar;
     }
-    function get_by_id_for_return($id)
+    function get_by_id_for_return($id) //to get sold items details for return
     {
         $sql = "select * from items_return where pos_id=$id";
         $res = $this->db->query($sql);
         $ar = array();
         if($res->num_rows==0) {
 
-            $sql = "select * from pos,sold_product where pos.pos_id=sold_product.pos_id and (date(current_date())-date(`date`))<14 and pos.pos_id=$id";
+            $sql = "select * from pos,sold_product where pos.pos_id=sold_product.pos_id and (date(current_date())-date(`date`))<14 and pos.pos_id=$id"; //return is accepted only within 14 days after bill date
             $res = $this->db->query($sql);
             include_once("c_drugs.php");
             $d = new drugs();
@@ -83,7 +91,7 @@ class pos{
         }
         return $ar;
     }
-    function getall()
+    function getall() //to generate a sales report
     {
         $filter="";
         if (isset($_POST["st_date"])) {
@@ -116,7 +124,7 @@ class pos{
 
 
 
-    function register()
+    function register() //to enter sold items information in to the system
     {
         $sql="insert into pos(tot_amount,tot_discount,sub_tot,net_tot) 
         values('$this->tot_amount','$this->tot_discount','$this->sub_tot','$this->net_tot')";
@@ -152,7 +160,7 @@ class pos{
 
         return $pid;
     }
-    function reset_points($rsp,$points,$pid)
+    function reset_points($rsp,$points,$pid) //to customers for use points to buy items
     {
         $sql = "insert into points(points,cus_ID,pos_id)
                 values ($points*(-1),$rsp,$pid)";
@@ -162,7 +170,7 @@ class pos{
 
         return true;
     }
-    function get_all_for_print($id)
+    function get_all_for_print($id) //to generate a bill
     {
 
             $sql = "select * from pos,sold_product where pos.pos_id=sold_product.pos_id AND pos.pos_id=$id";
@@ -189,6 +197,120 @@ class pos{
             return $ar;
 
     }
+    function get_all_items() //to generate a sales report
+    {
+        $filter="";
+        if (isset($_POST["st_date"])) {
+            $d1 = $_POST["st_date"];
+            $d2 = $_POST["end_date"];
 
+            $sql = "select * from pos,sold_product where pos.pos_id=sold_product.pos_id AND date(`date`)>='$d1' AND date(`date`)<='$d2'";
+            //echo $sql;
+            $res = $this->db->query($sql);
+            $ar = array();
+            include_once ("c_drugs.php");
+            $d = new drugs();
+            while ($row = $res->fetch_array()) {
+                $p = new pos();
+
+                $p->discount = $row["discount"];
+                $p->i_name = $d->getbyid($row["it_name"]);
+                $p->price = $row["price"];
+                $p->qty = $row["quantity"];
+                $p->amt = $row["amount"];
+
+                $ar[] = $p;
+            }
+
+
+            return $ar;
+        }
+    }
+    function today_sales_amount() //to find today sales amount
+    {
+        $sql = "SELECT SUM(net_tot) AS day_sum FROM pos WHERE date(date)=CURRENT_DATE";
+        $res = $this->db->query($sql);
+        $ar=array();
+        while($row=$res->fetch_array()) {
+            $p=new pos();
+
+            $p->today_tot_amt=$row["day_sum"];
+
+            $ar[]=$p;
+        }
+
+        return $ar;
+    }
+    function total_used_points_today() //to find total points that used today
+    {
+     $sql = "SELECT SUM(points) as day_pts FROM `points`,pos WHERE points.pos_id=pos.pos_id AND points<0 AND date(pos.date)=CURRENT_DATE";
+        $res = $this->db->query($sql);
+        $ar=array();
+        while($row=$res->fetch_array()) {
+            $p=new pos();
+
+            $p->total_used_pts=$row["day_pts"];
+            $xx =(-1.0) * (float)($p->total_used_pts);
+            //echo ($xx);
+            $p->used_points = $xx;
+            $ar[]=$p;
+        }
+
+        return $ar;
+    }
+    function latest_sales() //to find latest sales
+    {
+        $sql = "select sold_product.it_name,SUM(quantity) AS qty from pos,sold_product where pos.pos_id=sold_product.pos_id AND
+                date(pos.date)=CURRENT_DATE GROUP BY sold_product.it_name";
+        $res = $this->db->query($sql);
+        $ar=array();
+        include_once ("c_drugs.php");
+        $d = new drugs();
+        while($row=$res->fetch_array()) {
+            $p=new pos();
+
+            $p->today_items_name=$d->getbyid($row["it_name"]);
+            $p->today_items_qty=$row["qty"];
+
+            $ar[]=$p;
+        }
+
+        return $ar;
+    }
+    function today_return_amount() //to find today total amount of return
+    {
+        $sql = "SELECT SUM(amount) AS day_sum FROM items_return,returned_items 
+                WHERE items_return.return_id=returned_items.return_id AND date(date)=CURRENT_DATE";
+        $res = $this->db->query($sql);
+        $ar=array();
+        while($row=$res->fetch_array()) {
+            $p=new pos();
+
+            $p->today_returned_amount=$row["day_sum"];
+
+            $ar[]=$p;
+        }
+
+        return $ar;
+    }
+    function demand_items() //to generate a demand report
+    {
+        $sql = "select *,count(*) as cc from pos,sold_product where pos.pos_id=sold_product.pos_id AND
+                date(pos.date)=CURRENT_DATE group by sold_product.it_name order by cc desc";
+        $res = $this->db->query($sql);
+        $ar=array();
+        include_once ("c_drugs.php");
+        $d = new drugs();
+        while($row=$res->fetch_array()) {
+            $p=new pos();
+
+            $p->i_name=$d->getbyid($row["it_name"]);
+
+            $ar[]=$p;
+        }
+
+        return $ar;
+
+    }
 
 }

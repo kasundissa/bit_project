@@ -13,6 +13,7 @@ class drugs{
     public $manufacturer_name;
     public $marketer_name;
     public $description;
+    public $minimum_qty;
     public $cat_id;
     public $cat;
     private $db;
@@ -23,15 +24,15 @@ class drugs{
     }
     function register() //to store drug details in a database
     {
-        $sql="insert into drugs(drg_name,brand_name,manufacturer,marketer,description,catid)
+        $sql="insert into drugs(drg_name,brand_name,manufacturer,marketer,description,minimum_qty,catid)
         values('$this->drug_name','$this->brand_name','$this->manufacturer_name','$this->marketer_name',
-        '$this->description','$this->cat_id')";
+        '$this->description','$this->minimum_qty','$this->cat_id')";
         $this->db->query($sql); //to execute the query
         return true;
     }
     function update($id) //to update the drug details in a database
     {
-        $sql="update drugs set drg_name='$this->drug_name',brand_name='$this->brand_name',manufacturer='$this->manufacturer_name',marketer='$this->marketer_name',description='$this->description',catid='$this->cat_id' where drg_id=$id";
+        $sql="update drugs set drg_name='$this->drug_name',brand_name='$this->brand_name',manufacturer='$this->manufacturer_name',marketer='$this->marketer_name',description='$this->description',minimum_qty='$this->minimum_qty',catid='$this->cat_id' where drg_id=$id";
         $this->db->query($sql);
         return true;
     }
@@ -41,7 +42,7 @@ class drugs{
         $this->db->query($sql);
         return true;
     }
-    function getbyid($id)
+    function getbyid($id) // get drug details by id
     {
         $sql = "select * from drugs where drug_status='act' and drg_id=$id";
         $res = $this->db->query($sql);
@@ -55,11 +56,12 @@ class drugs{
         $d->manufacturer_name=$row['manufacturer'];
         $d->marketer_name=$row['marketer'];
         $d->description=$row['description'];
+        $d->minimum_qty=$row['minimum_qty'];
         $d->cat=$c->getbyid($row['catid']);
 
         return $d;
     }
-    function getall()
+    function getall() //get all the information of every drug in database
     {
         $sql="select * from drugs where drug_status='act'";
         $res=$this->db->query($sql);
@@ -75,6 +77,7 @@ class drugs{
             $d->manufacturer_name=$row['manufacturer'];
             $d->marketer_name=$row['marketer'];
             $d->description=$row['description'];
+            $d->minimum_qty=$row['minimum_qty'];
             $d->cat=$c->getbyid($row['catid']);
 
 

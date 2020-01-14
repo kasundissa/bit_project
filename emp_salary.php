@@ -42,7 +42,7 @@ include_once("head.php");
     <div class="form-group">
         <label class="control-label col-sm-2">Year:</label>
         <div class="col-sm-4">
-            <input type="text" name="year" class="form-control"  placeholder="e.g.:-2020" required>
+            <input type="text" name="year" class="form-control numonly"  placeholder="e.g.:-2020" required>
         </div>
     </div>
     <div class="form-group">

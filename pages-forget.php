@@ -2,7 +2,7 @@
 include_once("c_user.php");
 if (isset($_POST['email'])) {
     $u = new user();
-    $y = $u->password_recovery($_POST['email']);
+    $y = $u->password_recovery($_POST['email']); //to send an password recovery email
 
     header("location:pwd_recovery.php");
 }

@@ -19,17 +19,17 @@ class customer{
 
     private $db;
 
-    function __construct()
+    function __construct() //automatically call this function when you create an object from a class
     {
         $this->db=new mysqli(server,username,password,dbname);
-        $this->loyalty_no= rand(100000000,999999999);
+        $this->loyalty_no= rand(100000000,999999999); //generate a loyalty card no for customer
     }
-    function register()
+    function register() //register customer information in a database
     {
         $sql="insert into customer(cus_Name,cus_NIC,loyalty_card_no,date_of_birth,cus_address,cus_mobile,cus_email) 
         values('$this->cus_Name','$this->cus_NIC','$this->loyalty_no','$this->dob','$this->cus_address','$this->cus_mobile','$this->cus_email')";
         $this->db->query($sql);
-
+        //send a welcome email for the customer
         include_once("mail/src/PHPMailer.php");
         include_once("mail/src/SMTP.php");
 
@@ -55,7 +55,7 @@ class customer{
         }
         return true;
     }
-    function update($id)
+    function update($id)  //to update the customer details in a database
     {
         $sql="update customer set cus_Name='$this->cus_Name',cus_NIC='$this->cus_NIC',loyalty_card_no='$this->loyalty_no',date_of_birth='$this->dob',cus_address='$this->cus_address',cus_mobile='$this->cus_mobile',cus_email='$this->cus_email'
               where cus_ID=$id";
@@ -65,7 +65,7 @@ class customer{
         $this->db->query($sql);
         return true;
     }
-    function remove($cid)
+    function remove($cid) //to remove a customer detail in a database
     {
         $sql="update customer set cus_status='del' where cus_ID=$cid";
 
@@ -73,7 +73,7 @@ class customer{
         return true;
     }
 
-    function getbyid($id)
+    function getbyid($id) // get drug details by id
     {
         $sql = "select * from customer where cus_status='act' and cus_ID=$id";
         $res = $this->db->query($sql);
@@ -91,7 +91,7 @@ class customer{
 
         return $c;
     }
-    function getall()
+    function getall() // get all the information of customers that have loyalty points
     {
         $sql="select *,sum(points) tot  from customer,points where cus_status='act' and customer.cus_ID=points.cus_ID group by  customer.cus_ID";
         $res=$this->db->query($sql);
@@ -113,7 +113,7 @@ class customer{
         return $ar;
     }
 
-    function getbycode($LCN)
+    function getbycode($LCN) // get customer id for given loyalty card no
     {
         $sql = "select * from customer where cus_status='act' and loyalty_card_no=$LCN ";
         $res = $this->db->query($sql);
@@ -131,7 +131,7 @@ class customer{
 
         return $c;
     }
-    function getpoints($PS){
+    function getpoints($PS){ //get points that customer earned
         $sql = "select sum(points) ss from points where cus_ID=$PS";
        // echo $sql;
         $a = $this->db->query($sql);

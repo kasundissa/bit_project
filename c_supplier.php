@@ -14,7 +14,7 @@ class supplier{
 
     private $db;
 
-    function __construct()
+    function __construct() //automatically call this function when you create an object from a class
     {
         $this->db=new mysqli(server,username,password,dbname);
     }
@@ -24,19 +24,19 @@ class supplier{
         $this->db->query($sql);
         return true;
     }
-    function update($id)
+    function update($id) //register supplier information in a database
     {
         $sql="update supplier set sup_name='$this->supplier_name',company_name='$this->company_name',contact_no='$this->contact_no' where sup_id=$id";
         $this->db->query($sql);
         return true;
     }
-    function remove($sid)
+    function remove($sid) //to remove supplier information in a database
     {
         $sql="update supplier set sup_status='del' where sup_id=$sid";
         $this->db->query($sql);
         return true;
     }
-    function getbyid($id)
+    function getbyid($id) // get supplier details by id
     {
         $sql="select * from supplier where sup_status='act' and sup_id=$id";
         $res=$this->db->query($sql);
@@ -50,7 +50,7 @@ class supplier{
 
         return $s;
     }
-    function getall()
+    function getall() //to get all the information of suppliers
     {
         $sql="select * from supplier where sup_status='act'";
         $res=$this->db->query($sql);

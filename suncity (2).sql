@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 02, 2020 at 06:26 AM
+-- Generation Time: Jan 14, 2020 at 07:14 AM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.3.1
 
@@ -74,6 +74,7 @@ CREATE TABLE `drugs` (
   `manufacturer` varchar(100) NOT NULL,
   `marketer` varchar(100) NOT NULL,
   `description` varchar(300) DEFAULT NULL,
+  `minimum_qty` varchar(10) NOT NULL,
   `drug_status` varchar(6) NOT NULL DEFAULT 'act',
   `catid` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -82,18 +83,21 @@ CREATE TABLE `drugs` (
 -- Dumping data for table `drugs`
 --
 
-INSERT INTO `drugs` (`drg_id`, `drg_name`, `brand_name`, `manufacturer`, `marketer`, `description`, `drug_status`, `catid`) VALUES
-(1, 'Aripiprazole', 'ARIP MT', 'TORRENT PHARMACEUTICALS LTD', 'EONA', 'Do not give without receipt.', 'act', '8'),
-(2, 'Fluoxetine', 'Fluoxetine', 'SPC', 'SPC', 'Do not give without receipt.', 'act', '8'),
-(3, 'Aripiprazole', 'ARIP MT', 'Hemas', '', 'kkkkk', 'del', '8'),
-(4, 'Paracitol', 'Penadol', 'Hemas', '', 'Good for headache.', 'del', '5'),
-(5, 'Lacto', 'Lacto', 'Hemas', '', 'good for rashes in skin.', 'del', '6'),
-(6, 'Paracitol', 'Paracitol', 'SPC', '', 'fsfvvsf', 'del', '5'),
-(7, 'Aripiprazole', 'ARIP MT', 'Hemas', '', 'good', 'del', '5'),
-(11, 'Lacto', 'ARIP MT', 'Hemas', '', 'kkkkkiiiiiii', 'del', '6'),
-(12, 'Vitamin C', 'Vitamin C', 'Hemas', '', 'Good', 'del', '11'),
-(13, 'Sildenafil Citrate Tablets', 'ENOGRA-100', 'ZIM Laboratories Limited', 'Tabrane Pharmaceuticals (Pvt) Ltd', 'Do not give without receipt.', 'act', '8'),
-(14, 'Aripiprazole', 'Arizole', 'ATOZ Pharmaceuticals Pvt. Ltd.', 'EURO ASIAN PHARMACY', 'Do not give without receipt.', 'del', '8');
+INSERT INTO `drugs` (`drg_id`, `drg_name`, `brand_name`, `manufacturer`, `marketer`, `description`, `minimum_qty`, `drug_status`, `catid`) VALUES
+(1, 'Aripiprazole', 'ARIP MT', 'TORRENT PHARMACEUTICALS LTD', 'EONA', 'Do not give without receipt.', '500', 'act', '8'),
+(2, 'Fluoxetine', 'Fluoxetine', 'SPC', 'SPC', 'Do not give without receipt.', '500', 'act', '8'),
+(3, 'Aripiprazole', 'ARIP MT', 'Hemas', '', 'kkkkk', '', 'del', '8'),
+(4, 'Paracitol', 'Penadol', 'Hemas', '', 'Good for headache.', '', 'del', '5'),
+(5, 'Lacto', 'Lacto', 'Hemas', '', 'good for rashes in skin.', '', 'del', '6'),
+(6, 'Paracitol', 'Paracitol', 'SPC', '', 'fsfvvsf', '', 'del', '5'),
+(7, 'Aripiprazole', 'ARIP MT', 'Hemas', '', 'good', '', 'del', '5'),
+(11, 'Lacto', 'ARIP MT', 'Hemas', '', 'kkkkkiiiiiii', '', 'del', '6'),
+(12, 'Vitamin C', 'Vitamin C', 'Hemas', '', 'Good', '', 'del', '11'),
+(13, 'Sildenafil Citrate Tablets', 'ENOGRA-100', 'ZIM Laboratories Limited', 'Tabrane Pharmaceuticals (Pvt) Ltd', 'Do not give without receipt.', '300', 'act', '8'),
+(14, 'Aripiprazole', 'Arizole', 'ATOZ Pharmaceuticals Pvt. Ltd.', 'EURO ASIAN PHARMACY', 'Do not give without receipt.', '', 'del', '8'),
+(15, 'Atorvastatin Calsum', 'Atorva 10', 'Cadila Healthcare limited', 'Zydus Cadila', 'Do not give without receipt.', '250', 'act', '8'),
+(16, 'Captopril ', 'Captolar-25', 'Lark Laboratories', 'SPC', 'Good', '200', 'act', '5'),
+(17, 'Sitagliptin Tablet', 'Inosita', 'PharmEvo (pvt) Limited', 'CIC Holdings PLC', 'Do not give without receipt.', '400', 'act', '8');
 
 -- --------------------------------------------------------
 
@@ -194,7 +198,13 @@ INSERT INTO `drug_product` (`pro_id`, `drg_name`, `pk_size`, `no_of_pks`, `batch
 (41, '1', '100', '10', 'C144E001', 'mg20', '2019-12-30', '2021-12-01', 300, 23, 3000, 'act', 39),
 (42, '2', '100', '5', 'ftftfutfvuv', 'mg20', '2019-12-30', '2022-12-30', 250, 3, 1250, 'act', 39),
 (43, '1', '100', '5', 'C144E001', '15mg', '2019-12-31', '2021-12-31', 300, 24, 1500, 'act', 40),
-(44, '13', '20', '5', 'gdhh12', '50mg', '2019-11-01', '2021-11-01', 200, 30, 1000, 'act', 41);
+(44, '13', '20', '5', 'gdhh12', '50mg', '2019-11-01', '2021-11-01', 200, 20, 1000, 'act', 41),
+(45, '1', '50', '5', 'ghh455', '10mg', '2019-12-04', '2020-01-04', 200, 10, 1000, 'act', 42),
+(46, '2', '10', '10', '2', '5mg', '2020-01-01', '2020-01-04', 200, 30, 2000, 'act', 43),
+(47, '15', '100', '10', 'G805218', '10mg', '2019-12-01', '2022-12-01', 1171, 15, 11710, 'act', 44),
+(48, '16', '100', '10', 'CPT5-06', '25mg', '2019-11-01', '2022-11-01', 155, 18, 1550, 'act', 44),
+(49, '17', '10', '20', '8N025', '100mg', '2018-12-01', '2020-12-01', 485, 50, 9700, 'act', 45),
+(50, '2', '100', '10', '25545', '15mg', '2019-12-04', '2020-01-05', 200, 25, 2000, 'act', 46);
 
 -- --------------------------------------------------------
 
@@ -245,7 +255,12 @@ INSERT INTO `grn` (`grn_id`, `date`, `ref_no`, `sup_id`, `total_cost`, `grn_stat
 (38, '2019-12-30 11:36:55', '4556122344', 1, 5500, 'act'),
 (39, '2019-12-30 11:39:51', '0000555554', 1, 4250, 'act'),
 (40, '2019-12-31 06:27:03', '1122554488', 2, 1500, 'act'),
-(41, '2019-12-31 06:38:47', '0000011144', 2, 1000, 'act');
+(41, '2019-12-31 06:38:47', '0000011144', 2, 1000, 'act'),
+(42, '2020-01-03 04:57:31', '112121211', 2, 1000, 'act'),
+(43, '2020-01-03 05:48:34', '1', 2, 2000, 'act'),
+(44, '2020-01-04 17:51:21', '1244882244', 2, 13260, 'act'),
+(45, '2020-01-04 18:01:51', '4488226611', 1, 9700, 'act'),
+(46, '2020-01-05 03:32:20', '12124422', 2, 2000, 'act');
 
 -- --------------------------------------------------------
 
@@ -316,7 +331,12 @@ INSERT INTO `items_return` (`return_id`, `date`, `pos_id`) VALUES
 (20, '2019-12-30 10:07:39', 70),
 (21, '2019-12-30 10:10:10', 69),
 (22, '2019-12-30 10:15:12', 68),
-(23, '2019-12-30 11:00:25', 67);
+(23, '2019-12-30 11:00:25', 67),
+(24, '2020-01-02 11:10:51', 76),
+(25, '2020-01-02 15:45:45', 78),
+(26, '2020-01-03 05:29:29', 80),
+(27, '2020-01-03 05:55:51', 82),
+(28, '2020-01-05 03:50:08', 88);
 
 -- --------------------------------------------------------
 
@@ -367,7 +387,8 @@ INSERT INTO `online_sold_items` (`osi_id`, `it_id`, `qty`, `c_name`, `c_address`
 (2, 1, '1', '', '', ''),
 (3, 1, '1', 'Kasun', 'Kandy', '0757288142'),
 (4, 1, '1', 'Kasun', 'Kandy', '0757288142'),
-(5, 5, '1', 'Kasun', 'Kandy', '0757288142');
+(5, 5, '1', 'Kasun', 'Kandy', '0757288142'),
+(6, 1, '2', 'Kasun', 'Kandy', '0757288142');
 
 -- --------------------------------------------------------
 
@@ -409,7 +430,7 @@ INSERT INTO `points` (`pid`, `points`, `pos_id`, `cus_ID`) VALUES
 (20, '237.7', 18, 0),
 (21, '-595.957925', 51, 15),
 (22, '1.1885', 52, 15),
-(23, '2377', 19, 15),
+(23, '10000', 19, 15),
 (24, '-2378.1885', 53, 15),
 (25, '1.1885', 54, 0),
 (26, '1.1885', 55, 15),
@@ -435,7 +456,26 @@ INSERT INTO `points` (`pid`, `points`, `pos_id`, `cus_ID`) VALUES
 (46, '-0.000000000000', 71, 15),
 (47, '-0.000000000000', 72, 15),
 (48, '-0.0000000000009992007221626409', 73, 15),
-(49, '0.03885', 74, 0);
+(49, '0.03885', 74, 0),
+(50, '0.11885', 75, 0),
+(51, '0.01065', 76, 0),
+(52, '-0.508085', 77, 13),
+(53, '21.3', 24, 0),
+(54, '0.22642000000000004', 78, 0),
+(55, '31.95', 25, 0),
+(56, '0.22642000000000004', 79, 0),
+(57, '0.01065', 80, 15),
+(58, '21.3', 26, 15),
+(59, '0.11875', 81, 0),
+(60, '0.125', 82, 0),
+(61, '250', 27, 0),
+(62, '0.115', 83, 0),
+(63, '-345', 84, 15),
+(64, '0.15', 85, 0),
+(65, '0.21875', 86, 15),
+(66, '-30', 87, 15),
+(67, '0.015', 88, 0),
+(68, '30', 28, 0);
 
 -- --------------------------------------------------------
 
@@ -532,7 +572,21 @@ INSERT INTO `pos` (`pos_id`, `date`, `operator`, `tot_amount`, `tot_discount`, `
 (71, '2019-12-31 08:26:40', '', 6.39, 0, 6.39, 6, 'act'),
 (72, '2019-12-31 08:27:31', '', 6.39, 0, 6.39, 6, 'act'),
 (73, '2019-12-31 08:29:51', '', 6.39, 0, 6.39, 6, 'act'),
-(74, '2020-01-01 09:34:36', '', 77.7, 0, 77.7, 78, 'act');
+(74, '2020-01-01 09:34:36', '', 77.7, 0, 77.7, 78, 'act'),
+(75, '2020-01-02 08:52:01', '', 237.7, 0, 237.7, 238, 'act'),
+(76, '2020-01-02 08:52:41', '', 21.3, 0, 21.3, 21, 'act'),
+(77, '2020-01-02 09:55:20', '', 71.31, 0, 71.31, 71, 'act'),
+(78, '2020-01-02 15:34:52', '', 488.5, 35.66, 452.84, 453, 'act'),
+(79, '2020-01-02 15:55:25', '', 488.5, 35.66, 452.84, 453, 'act'),
+(80, '2020-01-03 05:25:23', '', 21.3, 0, 21.3, 21, 'act'),
+(81, '2020-01-03 05:51:01', '', 250, 12.5, 237.5, 238, 'act'),
+(82, '2020-01-03 05:54:02', '', 250, 0, 250, 250, 'act'),
+(83, '2020-01-03 07:05:50', '', 230, 0, 230, 230, 'act'),
+(84, '2020-01-03 15:55:51', '', 345, 0, 345, 345, 'act'),
+(85, '2020-01-04 15:48:59', '', 300, 0, 300, 300, 'act'),
+(86, '2020-01-05 03:45:58', '', 450, 12.5, 437.5, 438, 'act'),
+(87, '2020-01-05 03:47:41', '', 30, 0, 30, 30, 'act'),
+(88, '2020-01-05 03:49:24', '', 30, 0, 30, 30, 'act');
 
 -- --------------------------------------------------------
 
@@ -580,7 +634,11 @@ INSERT INTO `returned_items` (`ri_id`, `it_name`, `price`, `quantity`, `amount`,
 (24, '78', '2.13', '10', '21.3', 22),
 (25, '79', '23.77', '10', '237.7', 22),
 (26, '13', '10', '10', '100', 23),
-(27, '1', '23.77', '10', '237.7', 23);
+(27, '1', '23.77', '10', '237.7', 23),
+(28, '2', '2.13', '10', '21.3', 24),
+(29, '2', '2.13', '10', '21.3', 26),
+(30, '2', '25', '10', '250', 27),
+(31, '1', '10', '3', '30', 28);
 
 -- --------------------------------------------------------
 
@@ -615,7 +673,11 @@ INSERT INTO `salary_details` (`sid`, `year`, `month`, `OT`, `bonus`, `deduction`
 (7, '2019', 'january', '1000', '2000', '100', 19, '2000', '500', '24400'),
 (8, '2019', 'january', '1000', '2000', '100', 20, '1440', '360', '19100'),
 (9, '2019', 'february', '1000', '2000', '100', 19, '2000', '500', '25400'),
-(10, '2019', 'february', '1000', '1500', '200', 20, '1440', '360', '18500');
+(10, '2019', 'february', '1000', '1500', '200', 20, '1440', '360', '18500'),
+(11, '2020', 'february', '1000', '2000', '100', 19, '2000', '500', '25400'),
+(12, '2020', 'february', '1000', '2000', '100', 20, '1440', '360', '19100'),
+(13, '2020', 'february', '1000', '2000', '100', 21, '800', '200', '11900'),
+(14, '2020', 'february', '1000', '2000', '100', 22, '2000', '500', '25400');
 
 -- --------------------------------------------------------
 
@@ -726,7 +788,26 @@ INSERT INTO `sold_product` (`sp_id`, `it_name`, `price`, `quantity`, `amount`, `
 (85, '1', 2.13, '3', 6.39, '0.00', 72, 'act'),
 (86, '2', 2.13, '3', 6.39, '0.00', 73, 'act'),
 (87, '1', 2.13, '3', 6.39, '0.00', 74, 'act'),
-(88, '1', 23.77, '3', 71.31, '0.00', 74, 'act');
+(88, '1', 23.77, '3', 71.31, '0.00', 74, 'act'),
+(89, '1', 23.77, '10', 237.7, '0.00', 75, 'act'),
+(90, '2', 2.13, '10', 21.3, '0.00', 76, 'act'),
+(91, '1', 23.77, '3', 71.31, '0.00', 77, 'act'),
+(92, '1', 23.77, '15', 356.55, '35.66', 78, 'act'),
+(93, '2', 2.13, '15', 31.95, '0.00', 78, 'act'),
+(94, '13', 10, '10', 100, '0.00', 78, 'act'),
+(95, '1', 23.77, '15', 356.55, '35.66', 79, 'act'),
+(96, '2', 2.13, '15', 31.95, '0.00', 79, 'act'),
+(97, '13', 10, '10', 100, '0.00', 79, 'act'),
+(98, '2', 2.13, '10', 21.3, '0.00', 80, 'act'),
+(99, '2', 25, '10', 250, '12.50', 81, 'act'),
+(100, '2', 25, '10', 250, '0.00', 82, 'act'),
+(101, '1', 23, '10', 230, '0.00', 83, 'act'),
+(102, '1', 23, '15', 345, '0.00', 84, 'act'),
+(103, '2', 30, '10', 300, '0.00', 85, 'act'),
+(104, '2', 25, '10', 250, '12.50', 86, 'act'),
+(105, '1', 10, '20', 200, '0.00', 86, 'act'),
+(106, '1', 10, '3', 30, '0.00', 87, 'act'),
+(107, '1', 10, '3', 30, '0.00', 88, 'act');
 
 -- --------------------------------------------------------
 
@@ -771,7 +852,36 @@ INSERT INTO `stock` (`st_id`, `ref_type`, `ref_no`, `st_date`, `item_id`, `st_in
 (20, 'Sale', 72, '2019-12-31 13:57:32', 1, 0, 3),
 (21, 'Sale', 73, '2019-12-31 13:59:51', 2, 0, 3),
 (22, 'Sale', 74, '2020-01-01 15:04:36', 1, 0, 3),
-(23, 'Sale', 74, '2020-01-01 15:04:36', 1, 0, 3);
+(23, 'Sale', 74, '2020-01-01 15:04:36', 1, 0, 3),
+(24, 'Sale', 75, '2020-01-02 14:22:01', 1, 0, 10),
+(25, 'Sale', 76, '2020-01-02 14:22:41', 2, 0, 10),
+(26, 'Sale', 77, '2020-01-02 15:25:20', 1, 0, 3),
+(27, 'Return', 24, '2020-01-02 16:40:51', 2, 10, 0),
+(28, 'Sale', 78, '2020-01-02 21:04:52', 1, 0, 15),
+(29, 'Sale', 78, '2020-01-02 21:04:52', 2, 0, 15),
+(30, 'Sale', 78, '2020-01-02 21:04:52', 13, 0, 10),
+(31, 'Sale', 79, '2020-01-02 21:25:25', 1, 0, 15),
+(32, 'Sale', 79, '2020-01-02 21:25:25', 2, 0, 15),
+(33, 'Sale', 79, '2020-01-02 21:25:25', 13, 0, 10),
+(34, 'GRN', 42, '2020-01-03 10:27:31', 1, 250, 0),
+(35, 'Sale', 80, '2020-01-03 10:55:23', 2, 0, 10),
+(36, 'Return', 26, '2020-01-03 10:59:29', 2, 10, 0),
+(37, 'GRN', 43, '2020-01-03 11:18:34', 2, 100, 0),
+(38, 'Sale', 81, '2020-01-03 11:21:01', 2, 0, 10),
+(39, 'Sale', 82, '2020-01-03 11:24:03', 2, 0, 10),
+(40, 'Return', 27, '2020-01-03 11:25:51', 2, 10, 0),
+(41, 'Sale', 83, '2020-01-03 12:35:50', 1, 0, 10),
+(42, 'Sale', 84, '2020-01-03 21:25:51', 1, 0, 15),
+(43, 'Sale', 85, '2020-01-04 21:18:59', 2, 0, 10),
+(44, 'GRN', 44, '2020-01-04 23:21:21', 15, 1000, 0),
+(45, 'GRN', 44, '2020-01-04 23:21:21', 16, 1000, 0),
+(46, 'GRN', 45, '2020-01-04 23:31:51', 17, 200, 0),
+(47, 'GRN', 46, '2020-01-05 09:02:20', 2, 1000, 0),
+(48, 'Sale', 86, '2020-01-05 09:15:58', 2, 0, 10),
+(49, 'Sale', 86, '2020-01-05 09:15:58', 1, 0, 20),
+(50, 'Sale', 87, '2020-01-05 09:17:41', 1, 0, 3),
+(51, 'Sale', 88, '2020-01-05 09:19:24', 1, 0, 3),
+(52, 'Return', 28, '2020-01-05 09:20:08', 1, 3, 0);
 
 -- --------------------------------------------------------
 
@@ -803,7 +913,9 @@ INSERT INTO `supplier` (`sup_id`, `sup_name`, `company_name`, `contact_no`, `sup
 
 CREATE TABLE `sup_payments` (
   `pay_id` int(11) NOT NULL,
+  `ref_no` varchar(10) NOT NULL,
   `amount` double NOT NULL,
+  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `pay_method` varchar(10) NOT NULL,
   `cheque_no` varchar(15) DEFAULT NULL,
   `cheque_date` date DEFAULT NULL,
@@ -814,10 +926,13 @@ CREATE TABLE `sup_payments` (
 -- Dumping data for table `sup_payments`
 --
 
-INSERT INTO `sup_payments` (`pay_id`, `amount`, `pay_method`, `cheque_no`, `cheque_date`, `sup_id`) VALUES
-(1, 10000, 'Cheque', '004488', '2019-10-12', 2),
-(2, 8000, 'Cash', '', '0000-00-00', 1),
-(3, 0, 'cash', '', '0000-00-00', 1);
+INSERT INTO `sup_payments` (`pay_id`, `ref_no`, `amount`, `date`, `pay_method`, `cheque_no`, `cheque_date`, `sup_id`) VALUES
+(1, '', 10000, '2020-01-02 15:03:30', 'Cheque', '004488', '2020-02-01', 2),
+(2, '', 8000, '2020-01-02 15:03:30', 'Cash', '', '0000-00-00', 1),
+(3, '', 1000, '2020-01-02 15:03:30', 'cash', '', '0000-00-00', 1),
+(4, '1115448800', 800000, '2020-01-05 09:57:09', 'cash', '', '0000-00-00', 1),
+(5, '514555', 1000000, '2020-01-05 10:02:27', 'cash', '', '0000-00-00', 1),
+(6, '111111111', 800000, '2020-01-05 10:03:06', 'cash', '', '0000-00-00', 2);
 
 -- --------------------------------------------------------
 
@@ -976,7 +1091,7 @@ ALTER TABLE `customer`
 -- AUTO_INCREMENT for table `drugs`
 --
 ALTER TABLE `drugs`
-  MODIFY `drg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `drg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `drugs_category`
@@ -988,13 +1103,13 @@ ALTER TABLE `drugs_category`
 -- AUTO_INCREMENT for table `drug_product`
 --
 ALTER TABLE `drug_product`
-  MODIFY `pro_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `pro_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `grn`
 --
 ALTER TABLE `grn`
-  MODIFY `grn_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `grn_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `grocery_items`
@@ -1006,7 +1121,7 @@ ALTER TABLE `grocery_items`
 -- AUTO_INCREMENT for table `items_return`
 --
 ALTER TABLE `items_return`
-  MODIFY `return_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `return_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `offers`
@@ -1018,43 +1133,43 @@ ALTER TABLE `offers`
 -- AUTO_INCREMENT for table `online_sold_items`
 --
 ALTER TABLE `online_sold_items`
-  MODIFY `osi_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `osi_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `points`
 --
 ALTER TABLE `points`
-  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT for table `pos`
 --
 ALTER TABLE `pos`
-  MODIFY `pos_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `pos_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT for table `returned_items`
 --
 ALTER TABLE `returned_items`
-  MODIFY `ri_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `ri_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `salary_details`
 --
 ALTER TABLE `salary_details`
-  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `sold_product`
 --
 ALTER TABLE `sold_product`
-  MODIFY `sp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `sp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 
 --
 -- AUTO_INCREMENT for table `stock`
 --
 ALTER TABLE `stock`
-  MODIFY `st_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `st_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `supplier`
@@ -1066,7 +1181,7 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT for table `sup_payments`
 --
 ALTER TABLE `sup_payments`
-  MODIFY `pay_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `pay_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `user`

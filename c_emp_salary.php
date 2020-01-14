@@ -20,11 +20,11 @@ class emp_salary{
 
     private $db;
 
-    function __construct()
+    function __construct() //automatically call this function when you create an object from a class
     {
         $this->db=new mysqli(server,username,password,dbname);
     }
-    function register()
+    function register() //register salary information in monthly
     {
         include_once("c_user.php");
         $em = new user();
@@ -37,9 +37,9 @@ class emp_salary{
             $b_sal = $emd->basic_salary;
             //echo $b_sal;
 
-            $epf = $b_sal * 0.08;
-            $etf = $b_sal * 0.02;
-            $tot_sal = $b_sal - $epf - $etf + $this->OT[$c] + $this->bonus[$c] - $this->deduction[$c];
+            $epf = $b_sal * 0.08; //calculate epf
+            $etf = $b_sal * 0.02; //calculate etf
+            $tot_sal = $b_sal - $epf - $etf + $this->OT[$c] + $this->bonus[$c] - $this->deduction[$c]; //calculate final salary amount
 
             $sql = "insert into salary_details(`year`,`month`,OT,bonus,deduction,usr_ID,epf,etf,tot_salary)
                values('" . $this->year . "','" . $this->month . "','" . $this->OT[$c] . "','" . $this->bonus[$c] . "','" . $this->deduction[$c] . "','" . $this->usr_ID[$c] . "','" . $epf . "','" . $etf . "','" . $tot_sal . "') ";
@@ -49,7 +49,7 @@ class emp_salary{
         }
         return true;
     }
-    function getbyid($id,$month,$year)
+    function getbyid($id,$month,$year) //get salary details of a user by user's id
     {
         $sql = "select * from salary_details join `user` on salary_details.usr_ID=`user`.usr_ID where `user`.usr_ID=$id AND salary_details.month='$month' AND salary_details.year='$year'";
         $res = $this->db->query($sql);

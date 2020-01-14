@@ -12,18 +12,18 @@ class drugs_category{
 
     private $db;
 
-    function __construct()
+    function __construct() //automatically call this function when you create an object from a class
     {
         $this->db=new mysqli(server,username,password,dbname);
     }
-    function register()
+    function register() //register a drugs category information in a database
     {
         $sql="insert into drugs_category(cat_name) values('$this->cat_name')";
 
         $this->db->query($sql);
         return true;
     }
-    function update($id)
+    function update($id) //update a drugs category information in a database
     {
         $sql="update drugs_category set cat_name='$this->cat_name' where catid=$id";
 
@@ -32,7 +32,7 @@ class drugs_category{
         $this->db->query($sql);
         return true;
     }
-    function remove($cid)
+    function remove($cid) //remove a drugs category information in a database
     {
 		$sql="update drugs_category set cat_status='del' where catid=$cid";
 		
@@ -41,11 +41,7 @@ class drugs_category{
 		$this->db->query($sql);
 		return true;
     }
-    function change()
-    {
-
-    }
-    function getbyid($id)
+    function getbyid($id) // get a drugs category details by id
     {
         $sql = "select * from drugs_category where cat_status='act' and catid=$id";
         $res = $this->db->query($sql);
@@ -58,7 +54,7 @@ class drugs_category{
 
         return $c;
     }
-    function getall()
+    function getall() //get all the information of every drugs categories in database
     {
 		$sql="select * from drugs_category where cat_status='act'";
 			$res = $this->db->query($sql);

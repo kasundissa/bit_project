@@ -9,13 +9,13 @@ else
     header("location:page-login.php");
 }
 
-include_once("c_user.php");
+include_once("c_user.php");  //import the user class file
 
 
 if(isset($_POST["uaddress"])){
-    $u2=new user();
+    $u2=new user(); //create a new object
 
-    $u2->usr_Name = $_POST["uname"];
+    $u2->usr_Name = $_POST["uname"];  //match the variables with user interface
     if(isset($_POST["upassword"]))
 	    $u2->usr_password = $_POST["upassword"];
 	$u2->usr_NIC = $_POST["unic"];
@@ -27,19 +27,19 @@ if(isset($_POST["uaddress"])){
     $u2->basic_salary = $_POST["b_salary"];
 
 	if(isset($_POST["uid"])){
-        $u2->update($_POST["uid"]);
+        $u2->update($_POST["uid"]); //to call the update function
 
     }else{
 
-        $u2->register();
+        $u2->register(); //to call the register function
     }
 }
 
-$u=new user();
+$u=new user(); //create a new object
 if(isset($_GET['ed'])){
-    $u= $u->getbyid($_GET['ed']);
+    $u= $u->getbyid($_GET['ed']); // call the getbyid function to get user id
 }
-include_once("c_emp_salary.php");
+//include_once("c_emp_salary.php");
 
 include_once("head.php");
 ?>
@@ -53,7 +53,7 @@ include_once("head.php");
 <?php
         if(isset($_GET['ed'])){
             $id=$_GET['ed'];
-            echo "<input name ='uid' type='hidden' value='$id'>";
+            echo "<input name ='uid' type='hidden' value='$id'>"; //put user id into the hidden text box
         }
 
 
@@ -62,7 +62,7 @@ include_once("head.php");
         <div class="form-group">
             <label class="control-label col-sm-2">Name:</label>
             <div class="col-sm-10">
-                <input type="text" name="uname" class="form-control"  placeholder="e.g.:-John" value="<?=$u->usr_Name?>" required>
+                <input type="text" name="uname" class="form-control"  placeholder="e.g.:-John" value="<?=$u->usr_Name?>" required> <!-- create a text box-->
             </div>
         </div>
         <?php
@@ -121,7 +121,7 @@ include_once("head.php");
                 </select>
             </div>
         </div>
-		<input type="submit" class="btn">
+		<input type="submit" class="btn"> <!--submit button to submit the form-->
 	</form>
 </body>
 </html>

@@ -78,7 +78,7 @@ include_once("head.php");
             }
             foreach($k as $item){
                 if ($item->discount>0)
-                $cb="disabled";
+                $cb="disabled"; //to disable the check box discount given items
                 else
                     $cb="";
                 echo "<tr><td><input type='hidden' value='$item->sold_product_id' name='sp_id[]'><input type='text' value='".$item->i_name->drug_name."'></td><td><input type='text' value='$item->price' name='price[]'></td><td><input type='text' value='$item->qty' name='qty[]'></td><td><input type='text' class='abox' value='$item->amt' id='amt' name='amount[]'></td><td><input type='text' value='$item->discount' id='diss' name='discount[]'></td><td><input name='chk[$item->sold_product_id]' type='checkbox' class='cbox' $cb></td></tr>";
@@ -112,7 +112,7 @@ include_once("foot.php");
 ?>
 <script>
    var tot=0;
-    jQuery(".cbox").change(function () {
+    jQuery(".cbox").change(function () { //to change returnable amount when you tick the check box
         if (jQuery(this).is(':checked')){
             var v = jQuery(this).parent().parent().find(".abox").val();
             tot += parseFloat(v);
@@ -126,7 +126,7 @@ include_once("foot.php");
         }
 
     })
-   jQuery("#loyalty_no").blur(function () {
+   jQuery("#loyalty_no").blur(function () { //to get customer id by entering the loyalty card no
        var d =jQuery("#loyalty_no").val();
        jQuery.get("ajax.php",{LCN:d},function(data){
            jQuery("#cid").val(data);

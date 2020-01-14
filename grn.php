@@ -124,13 +124,13 @@ include_once("head.php");
     <div class="form-group col-sm-4">
         <label class="control-label col-sm-5" >Pack Price:</label>
         <div class="col-sm-7">
-            <input type="text" name="pak_price" id="pk_price" class="form-control deconly" placeholder="Rs.0.00">
+            <input type="text" name="pak_price" id="pk_price" class="form-control numonly" placeholder="Rs.300">
         </div>
     </div>
     <div class="form-group col-sm-4">
         <label class="control-label col-sm-5" >Selling Price of Unit:</label>
         <div class="col-sm-7">
-            <input type="text" name="sell_price" id="sl_price"  class="form-control deconly" placeholder="Rs.0.00"><br/>
+            <input type="text" name="sell_price" id="sl_price"  class="form-control numonly" placeholder="Rs.10"><br/>
         </div>
     </div>
     <div class="form-group col-sm-4">
@@ -174,9 +174,24 @@ include_once("foot.php");
 
 <script>
 
-
+//to add a record into the table
     function add() {
 
+        if(check_list()==false)
+        {
+            alert("Item already on the list !!!");
+            jQuery("#pack_size").val("");
+            jQuery("#no_pack").val("");
+            jQuery("#bno").val("");
+            jQuery("#weight").val("");
+            jQuery("#m_date").val("");
+            jQuery("#ex_date").val("");
+            jQuery("#pk_price").val("");
+            jQuery("#sl_price").val("");
+
+            return false;
+
+        }
         var d_name = jQuery("#drg_name").val();
         var d_name2 = jQuery("#drg_name option:selected").text();
         var pk_size = jQuery("#pack_size").val();
@@ -190,7 +205,7 @@ include_once("foot.php");
         var s_price = jQuery("#sl_price").val();
 
 
-        if(pk_size.length<1)
+        if(pk_size.length<1) //prevent adding empty rows into the table
             return;
         if (no_pk.length<1)
             return;
@@ -207,10 +222,10 @@ include_once("foot.php");
         if(s_price.length<1)
             return;
 
-        var tbcont="<tr><td><input type='text' id='dn2' value='"+d_name2+"'><input type='hidden' id='dn' readonly='readonly' value='"+d_name+"' name='dn[]' ></td><td><input size='8' type='text' id='ps' readonly='readonly' value='"+pk_size+"' name='ps[]'></td><td><input  size='8' type='text' id='np' readonly='readonly' value='"+no_pk+"' name='np[]'></td><td><input size='8' type='text' id='b_no' readonly='readonly' value='"+b_no+"' name='b_no[]'></td><td><input  size='8' type='text' id='wgt' readonly='readonly' value='"+weight+"' name='wgt[]'></td><td><input size='11' type='text' id='mdate' readonly='readonly' value='"+manufacture_date+"' name='mdate[]'></td><td><input  size='11' type='text' id='e_date' readonly='readonly' value='"+expire_date+"' name='e_date[]'></td><td><input size='8' type='text' id='up' readonly='readonly' value='"+u_price+"' name='up[]'></td><td><input size='8' type='text' id='sp' readonly='readonly' value='"+s_price+"' name='sp[]'></td><td><input size='8' type='text' class='total' readonly='readonly' value='"+tot+"' name='total[]'></td><td><input type='button' class='btn' onclick='remove(this)' value='Remove'></td></tr>";
+        var tbcont="<tr><td><input type='text' id='dn2' value='"+d_name2+"'><input type='hidden' id='dn' class='abc' readonly='readonly' value='"+d_name+"' name='dn[]' ></td><td><input size='8' type='text' id='ps' readonly='readonly' value='"+pk_size+"' name='ps[]'></td><td><input  size='8' type='text' id='np' readonly='readonly' value='"+no_pk+"' name='np[]'></td><td><input size='8' type='text' id='b_no' readonly='readonly' value='"+b_no+"' name='b_no[]'></td><td><input  size='8' type='text' id='wgt' readonly='readonly' value='"+weight+"' name='wgt[]'></td><td><input size='11' type='text' id='mdate' readonly='readonly' value='"+manufacture_date+"' name='mdate[]'></td><td><input  size='11' type='text' id='e_date' readonly='readonly' value='"+expire_date+"' name='e_date[]'></td><td><input size='8' type='text' id='up' readonly='readonly' value='"+u_price+"' name='up[]'></td><td><input size='8' type='text' id='sp' readonly='readonly' value='"+s_price+"' name='sp[]'></td><td><input size='8' type='text' class='total' readonly='readonly' value='"+tot+"' name='total[]'></td><td><input type='button' class='btn' onclick='remove(this)' value='Remove'></td></tr>";
         jQuery("#tb1").append(tbcont);
 
-        jQuery("#drg_name").val("");
+        jQuery("#drg_name").val(""); //empty the text box after adding a row into the table
         jQuery("#pack_size").val("");
         jQuery("#no_pack").val("");
         jQuery("#bno").val("");
@@ -224,10 +239,10 @@ include_once("foot.php");
         jQuery('.total').each(function (index,element) {
             total = total + parseFloat(jQuery(element).val());
         });
-        jQuery("#t_cost").val(total);
+        jQuery("#t_cost").val(total); //to get total cost
 
     }
-    function remove(aa) {
+    function remove(aa) { //to remove a record from the table
         jQuery(aa).parent().parent().remove();
         var total = 0;
         jQuery('.total').each(function (index,element) {
@@ -236,4 +251,15 @@ include_once("foot.php");
         jQuery("#t_cost").val(total);
     }
 
+    function check_list(){ //to prevent the same item adding to the table again
+        var  rep=true;
+        jQuery.each(jQuery('.abc'),function(){
+            var  v1=jQuery(this).val();
+            var  v2=jQuery("#drg_name").val();
+            if(v1==v2){
+                rep = false;
+            }
+        });
+        return rep;
+    }
 </script>
